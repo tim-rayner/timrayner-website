@@ -1,3 +1,4 @@
+import { Navbar } from "@/features/navbar";
 import TrpcProvider from "@/lib/TrpcProvider";
 import MuiProvider from "@/theme/MuiProvider";
 import type { Metadata } from "next";
@@ -41,7 +42,10 @@ export default function RootLayout({
     <html lang="en" className={geist.variable}>
       <body>
         <TrpcProvider>
-          <MuiProvider>{children}</MuiProvider>
+          <MuiProvider>
+            <Navbar />
+            <main>{children}</main>
+          </MuiProvider>
         </TrpcProvider>
       </body>
     </html>

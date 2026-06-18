@@ -31,33 +31,6 @@ const imageVariants = {
   },
 };
 
-function Portrait({ size }: { size: number }) {
-  return (
-    <Box
-      sx={{
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        border: "2px solid",
-        borderColor: "primary.main",
-        overflow: "hidden",
-        position: "relative",
-        flexShrink: 0,
-        boxShadow: "0 12px 48px -12px rgba(124, 93, 255, 0.35)",
-      }}
-    >
-      <Image
-        src="/tim.png"
-        alt="Tim Rayner"
-        fill
-        priority
-        sizes={`${size}px`}
-        style={{ objectFit: "cover", objectPosition: "top center" }}
-      />
-    </Box>
-  );
-}
-
 export default function HeroSection() {
   return (
     <Box
@@ -68,9 +41,41 @@ export default function HeroSection() {
         bgcolor: "background.default",
         display: "grid",
         gridTemplateColumns: { xs: "1fr", md: "55fr 45fr" },
+        gridTemplateRows: { xs: "50vh auto", md: "1fr" },
       }}
     >
-      {/* Left: content */}
+      {/* Mobile only: full-width image strip at top */}
+      <MotionBox
+        variants={imageVariants}
+        initial="hidden"
+        animate="visible"
+        sx={{
+          display: { xs: "block", md: "none" },
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <Image
+          src="/tim-background.PNG"
+          alt="Tim Rayner"
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: "cover", objectPosition: "center calc(8% - 75px)" }}
+        />
+        {/* Bottom fade into background */}
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to bottom, transparent 50%, #0B0F1A 100%)",
+            pointerEvents: "none",
+          }}
+        />
+      </MotionBox>
+
+      {/* Content */}
       <MotionBox
         variants={containerVariants}
         initial="hidden"
@@ -82,19 +87,12 @@ export default function HeroSection() {
           alignItems: { xs: "center", md: "flex-start" },
           textAlign: { xs: "center", md: "left" },
           px: { xs: 3, sm: 5, md: 8 },
-          py: { xs: 8, md: 10 },
+          pt: { xs: 5, md: "calc(64px + 40px)" },
+          pb: { xs: 8, md: 10 },
         }}
       >
-        {/* Mobile-only portrait */}
-        <MotionBox
-          variants={itemVariants}
-          sx={{ display: { xs: "flex", md: "none" }, mb: 4 }}
-        >
-          <Portrait size={140} />
-        </MotionBox>
-
-        {/* Name + role */}
-        <MotionBox variants={itemVariants} sx={{ mb: 4 }}>
+        {/* Role */}
+        <MotionBox variants={itemVariants} sx={{ mb: 2 }}>
           <Typography
             component="p"
             sx={{
@@ -167,7 +165,7 @@ export default function HeroSection() {
         </MotionBox>
       </MotionBox>
 
-      {/* Right: full-height background image (desktop only) */}
+      {/* Desktop only: full-height image on right */}
       <MotionBox
         variants={imageVariants}
         initial="hidden"
@@ -184,19 +182,15 @@ export default function HeroSection() {
           fill
           priority
           sizes="45vw"
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          style={{ objectFit: "cover", objectPosition: "center calc(50% + 150px)" }}
         />
-        {/* Fade into background on the left edge */}
+        {/* Horizontal left-edge fade into content */}
         <Box
           sx={{
             position: "absolute",
             inset: 0,
-            left: 0,
-            top: 0,
-            bottom: 0,
             width: 180,
-            background:
-              "linear-gradient(to right, #0B0F1A 0%, transparent 100%)",
+            background: "linear-gradient(to right, #0B0F1A 0%, transparent 100%)",
             pointerEvents: "none",
             zIndex: 1,
           }}

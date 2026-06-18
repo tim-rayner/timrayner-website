@@ -7,5 +7,12 @@ interface Props {
 }
 
 export default function HomeClient({ serverMessage: _ }: Props) {
-  return <HeroSection />;
+  return (
+    <>
+      <HeroSection />
+      <div style={{ padding: "20px", height: "100vh" }}>
+        <h1>Hello</h1>
+      </div>
+    </>
+  );
 }
