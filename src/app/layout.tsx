@@ -1,7 +1,10 @@
 import TrpcProvider from "@/lib/TrpcProvider";
 import MuiProvider from "@/theme/MuiProvider";
 import type { Metadata } from "next";
+import { Geist } from "next/font/google";
 import "./globals.css";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 
 export const metadata: Metadata = {
   title: "Software Engineer - Tim Rayner",
@@ -35,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={geist.variable}>
       <body>
         <TrpcProvider>
           <MuiProvider>{children}</MuiProvider>

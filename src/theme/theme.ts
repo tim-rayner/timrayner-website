@@ -9,7 +9,16 @@ declare module "@mui/material/styles" {
   }
 }
 
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    cta: true;
+  }
+}
+
 const theme = createTheme({
+  typography: {
+    fontFamily: 'var(--font-geist), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+  },
   palette: {
     mode: "dark",
     background: {

@@ -25,6 +25,7 @@
     "@trpc/react-query": "^11.15.0",
     "@trpc/server": "^11.15.0",
     "drizzle-orm": "^0.45.1",
+    "framer-motion": "^12.40.0",
     "next": "16.2.1",
     "postgres": "^3.4.8",
     "react": "19.2.4",
