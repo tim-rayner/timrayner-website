@@ -1,0 +1,49 @@
+{
+  "name": "whatever-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "postinstall": "node llm/sync.mjs",
+    "sync-llm-rules": "node llm/sync.mjs",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/server": "^11.11.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.9",
+    "@mui/material": "^7.3.9",
+    "@supabase/supabase-js": "^2.100.0",
+    "@tanstack/react-query": "^5.95.2",
+    "@trpc/client": "^11.15.0",
+    "@trpc/next": "^11.15.0",
+    "@trpc/react-query": "^11.15.0",
+    "@trpc/server": "^11.15.0",
+    "drizzle-orm": "^0.45.1",
+    "next": "16.2.1",
+    "postgres": "^3.4.8",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.0.1",
+    "babel-plugin-react-compiler": "1.0.0",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.1",
+    "jsdom": "^29.0.1",
+    "typescript": "^5",
+    "vitest": "^4.1.1"
+  }
+}

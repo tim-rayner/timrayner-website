@@ -1,0 +1,21 @@
+{
+  "defaultRules": [
+    "ubiquitous-language.md",
+    "decisions.md"
+  ],
+  "modules": [
+    { "rule": "api.md", "path": "src/api", "description": "tRPC API routers and setup" },
+    { "rule": "app.md", "path": "src/app", "description": "Next.js App Router pages and layouts" },
+    { "rule": "db.md", "path": "src/db", "description": "Supabase client and Drizzle ORM schema" },
+    { "rule": "lib.md", "path": "src/lib", "description": "Shared utilities and tRPC client setup" },
+    { "rule": "theme.md", "path": "src/theme", "description": "MUI theme configuration" }
+  ],
+  "targets": {
+    "claudeCode": "auto",
+    "cursor": "auto",
+    "copilot": "auto",
+    "windsurf": "auto",
+    "codex": "auto",
+    "cline": "auto"
+  }
+}
