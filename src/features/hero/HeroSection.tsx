@@ -65,7 +65,7 @@ export default function HeroSection() {
           sizes="100vw"
           style={{
             objectFit: "cover",
-            objectPosition: "center 38%",
+            objectPosition: "center 25%",
           }}
         />
         {/* Bottom fade into background */}
@@ -186,7 +186,7 @@ export default function HeroSection() {
         </MotionBox>
 
         {/* Role */}
-        <MotionBox variants={itemVariants} sx={{ mb: { xs: 1.5, md: 3.5 } }}>
+        <MotionBox variants={itemVariants} sx={{ mb: { xs: 1.5, md: 1.5 } }}>
           <Typography
             component="p"
             sx={{
@@ -202,6 +202,24 @@ export default function HeroSection() {
           </Typography>
         </MotionBox>
 
+        {/* Supporting copy */}
+        <MotionBox
+          variants={itemVariants}
+          sx={{ mb: { xs: 2, md: 6 }, width: "100%" }}
+        >
+          <Typography
+            sx={{
+              color: "text.secondary",
+              lineHeight: 1.75,
+              fontSize: "1rem",
+              maxWidth: { xs: "44ch", md: "42ch" },
+            }}
+          >
+            Self-taught engineer with 7+ years of experience designing and
+            delivering production software at scale.
+          </Typography>
+        </MotionBox>
+
         {/* Tagline — hidden on mobile */}
         <MotionBox
           variants={itemVariants}
@@ -211,10 +229,10 @@ export default function HeroSection() {
             component="h2"
             sx={{
               fontSize: {
-                xs: "2rem",
-                sm: "3rem",
-                md: "3.2rem",
-                lg: "3.8rem",
+                xs: "1.75rem",
+                sm: "2.6rem",
+                md: "2.8rem",
+                lg: "3.2rem",
               },
               fontWeight: 800,
               lineHeight: 1.06,
@@ -230,40 +248,10 @@ export default function HeroSection() {
           </Typography>
         </MotionBox>
 
-        {/* Divider — mobile only, between role and body */}
-        <Box
-          sx={{
-            display: { xs: "block", sm: "none" },
-            width: 64,
-            height: "1px",
-            bgcolor: "cta.main",
-            mx: "auto",
-            mb: 2,
-          }}
-        />
-
-        {/* Supporting copy */}
-        <MotionBox
-          variants={itemVariants}
-          sx={{ mb: { xs: 0, sm: 2.5 }, width: "100%" }}
-        >
-          <Typography
-            sx={{
-              color: "text.secondary",
-              lineHeight: 1.75,
-              fontSize: "1rem",
-              maxWidth: { xs: "44ch", md: "42ch" },
-            }}
-          >
-            Self-taught engineer with 7+ years of experience designing and
-            delivering production software at scale.
-          </Typography>
-        </MotionBox>
-
         {/* CTA block */}
         <MotionBox
           variants={itemVariants}
-          sx={{ width: "100%", mt: { xs: 3.5, sm: 0 } }}
+          sx={{ width: "100%", mt: { xs: 0, sm: 0 } }}
         >
           {/* Mobile: View Work full-width; secondary row below */}
           <Box
