@@ -1,6 +1,7 @@
 "use client";
 
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import PlaceIcon from "@mui/icons-material/Place";
 import { Box, Button, Chip, IconButton, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import TechStackBanner from "./TechStackBanner";
@@ -100,16 +101,17 @@ export default function HeroSection() {
         {/* Name block */}
         <MotionBox
           variants={itemVariants}
-          sx={{ mb: { xs: 1, md: 0.75 }, width: "100%" }}
+          sx={{ mb: { xs: 0.5, md: 0.5 }, width: "100%" }}
         >
           {/* Eyebrow */}
           <Box
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", md: "row" },
+              flexDirection: "row",
               alignItems: "center",
               justifyContent: { xs: "center", md: "flex-start" },
-              gap: { xs: 1.25, md: 1.5 },
+              flexWrap: "wrap",
+              gap: 1.25,
               mb: { xs: 1, md: 1.5 },
             }}
           >
@@ -152,28 +154,37 @@ export default function HeroSection() {
                 },
               }}
             />
-            <Typography
-              component="p"
+            <Box
               sx={{
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
+                display: "flex",
+                alignItems: "center",
+                gap: 0.4,
                 color: "text.secondary",
               }}
             >
-              Norwich, UK
-            </Typography>
+              <PlaceIcon sx={{ fontSize: "0.875rem", opacity: 0.7 }} />
+              <Typography
+                component="span"
+                sx={{
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Norwich, UK
+              </Typography>
+            </Box>
           </Box>
 
           <Typography
             component="h1"
             sx={{
               fontSize: {
-                xs: "2.6rem",
-                sm: "3rem",
-                md: "3.4rem",
-                lg: "4.2rem",
+                xs: "2.2rem",
+                sm: "2.6rem",
+                md: "2.9rem",
+                lg: "3.5rem",
               },
               fontWeight: { xs: 800, md: 300 },
               lineHeight: 1.05,
@@ -202,17 +213,17 @@ export default function HeroSection() {
           </Typography>
         </MotionBox>
 
-        {/* Supporting copy */}
+        {/* Supporting copy — mobile only */}
         <MotionBox
           variants={itemVariants}
-          sx={{ mb: { xs: 2, md: 6 }, width: "100%" }}
+          sx={{ mb: { xs: 2, md: 0 }, width: "100%", display: { xs: "block", md: "none" } }}
         >
           <Typography
             sx={{
               color: "text.secondary",
               lineHeight: 1.75,
               fontSize: "1rem",
-              maxWidth: { xs: "44ch", md: "42ch" },
+              maxWidth: "44ch",
             }}
           >
             Self-taught engineer with 7+ years of experience designing and

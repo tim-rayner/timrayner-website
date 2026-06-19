@@ -2,10 +2,11 @@ import { Navbar } from "@/features/navbar";
 import TrpcProvider from "@/lib/TrpcProvider";
 import MuiProvider from "@/theme/MuiProvider";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Caveat, Geist } from "next/font/google";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
+const caveat = Caveat({ subsets: ["latin"], variable: "--font-caveat" });
 
 export const metadata: Metadata = {
   title: "Software Engineer - Tim Rayner",
@@ -39,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={geist.variable}>
+    <html lang="en" className={`${geist.variable} ${caveat.variable}`}>
       <body>
         <TrpcProvider>
           <MuiProvider>

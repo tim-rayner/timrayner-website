@@ -40,6 +40,8 @@ const defaultTechnologies: TechItem[] = [
   { name: "Supabase", slug: "supabase" },
   { name: "Docker", slug: "docker" },
   { name: "Cloudflare", slug: "cloudflare" },
+  { name: "Vercel", slug: "vercel" },
+  { name: "Nx", slug: "nx" },
 ];
 
 function TechIcon({
