@@ -26,7 +26,7 @@ export function RightClickHint() {
         <p
           style={{
             fontFamily: "var(--font-caveat)",
-            fontSize: "1.3rem",
+            fontSize: "1.5rem",
             fontWeight: 600,
             color: "rgba(255,255,255,0.42)",
             lineHeight: 1.5,

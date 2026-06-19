@@ -121,6 +121,21 @@ export function ProjectsSection() {
           </MotionBox>
         </MotionBox>
 
+        {/* Subheading above the grid */}
+        <Typography
+          component="h3"
+          sx={{
+            mb: 3,
+            fontFamily: "var(--font-caveat)",
+            fontSize: { xs: "1.35rem", md: "1.55rem" },
+            fontWeight: 600,
+            color: "text.disabled",
+            letterSpacing: "0.01em",
+          }}
+        >
+          Click a project to learn more!
+        </Typography>
+
         {/* Drive-style projects grid — relative wrapper anchors the doodle hint */}
         <Box sx={{ position: "relative" }}>
           <RightClickHint />
@@ -131,8 +146,10 @@ export function ProjectsSection() {
           sx={{
             mt: 10,
             mb: 2,
+            fontFamily: "var(--font-caveat)",
+            fontSize: { xs: "1.1rem", md: "1.5rem" },
+            fontWeight: 500,
             color: "text.disabled",
-            fontSize: "0.9rem",
             textAlign: "center",
             lineHeight: 1.7,
           }}

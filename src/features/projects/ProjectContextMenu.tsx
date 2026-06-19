@@ -7,6 +7,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import LanguageIcon from "@mui/icons-material/Language";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import type { Project } from "./data/projects";
+import { NpmLogo, ChromeLogo } from "./ProjectIcons";
 
 const TILE_COLORS = [
   { label: "Purple", value: "#7C5DFF" },
@@ -18,29 +19,6 @@ const TILE_COLORS = [
   { label: "Slate", value: "#94A3B8" },
   { label: "Emerald", value: "#34D399" },
 ];
-
-function ChromeLogo({ size = 15 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 100 100"
-      aria-hidden="true"
-      style={{ flexShrink: 0 }}
-    >
-      {/* Red base (top sector) */}
-      <circle cx="50" cy="50" r="50" fill="#EA4335" />
-      {/* Green sector — bottom-left */}
-      <path d="M50,50 L6.7,25 A50,50,0,0,1,50,100 Z" fill="#34A853" />
-      {/* Yellow sector — bottom-right */}
-      <path d="M50,50 L50,100 A50,50,0,0,1,93.3,25 Z" fill="#FBBC05" />
-      {/* White separator ring */}
-      <circle cx="50" cy="50" r="32" fill="white" />
-      {/* Blue center */}
-      <circle cx="50" cy="50" r="22" fill="#4285F4" />
-    </svg>
-  );
-}
 
 interface MenuItem {
   icon: React.ReactNode;
@@ -179,6 +157,18 @@ export function ProjectContextMenu({
             label: "GitHub",
             onClick: () => {
               window.open(project.githubHref, "_blank", "noopener");
+              onClose();
+            },
+          },
+        ]
+      : []),
+    ...(project.npmUrl
+      ? [
+          {
+            icon: <NpmLogo />,
+            label: "View on npm",
+            onClick: () => {
+              window.open(project.npmUrl, "_blank", "noopener");
               onClose();
             },
           },

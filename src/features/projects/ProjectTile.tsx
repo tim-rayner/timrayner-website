@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { Box, Tooltip, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { motion } from "framer-motion";
 import type { Project } from "./data/projects";
 import type { ViewMode } from "./ProjectSearch";
+import { TileIcon } from "./ProjectIcons";
 
 const MotionBox = motion(Box);
 
@@ -15,82 +15,6 @@ const STATUS_CONFIG = {
   concept: { label: "Concept", dot: false },
 } as const;
 
-function FolderIcon({ color, size = 56 }: { color: string; size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size * (44 / 56)}
-      viewBox="0 0 56 44"
-      fill="none"
-      aria-hidden="true"
-    >
-      {/* Folder back */}
-      <path
-        d="M0 8C0 3.582 3.582 0 8 0H20.343C22.404 0 24.38 0.843 25.808 2.343L27.657 4.333C28.585 5.321 29.856 5.879 31.186 5.879H48C52.418 5.879 56 9.461 56 13.879V36C56 40.418 52.418 44 48 44H8C3.582 44 0 40.418 0 36V8Z"
-        fill={color}
-        opacity={0.22}
-      />
-      {/* Folder front face */}
-      <path
-        d="M0 14C0 11.791 1.791 10 4 10H52C54.209 10 56 11.791 56 14V36C56 40.418 52.418 44 48 44H8C3.582 44 0 40.418 0 36V14Z"
-        fill={color}
-        opacity={0.55}
-      />
-      {/* Shine */}
-      <path
-        d="M4 10H52C54.209 10 56 11.791 56 14V17H0V14C0 11.791 1.791 10 4 10Z"
-        fill="white"
-        opacity={0.06}
-      />
-    </svg>
-  );
-}
-
-function TileIcon({
-  logoUrl,
-  color,
-  size,
-}: {
-  logoUrl?: string;
-  color: string;
-  size: 56 | 28;
-}) {
-  const [logoFailed, setLogoFailed] = useState(false);
-  const showLogo = Boolean(logoUrl) && !logoFailed;
-  const height = size === 56 ? 44 : 22;
-
-  if (!showLogo) {
-    return <FolderIcon color={color} size={size} />;
-  }
-
-  return (
-    <Box
-      sx={{
-        width: size,
-        height,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexShrink: 0,
-      }}
-    >
-      <Box
-        component="img"
-        src={logoUrl}
-        alt=""
-        aria-hidden
-        onError={() => setLogoFailed(true)}
-        sx={{
-          display: "block",
-          maxWidth: "100%",
-          maxHeight: "100%",
-          objectFit: "contain",
-        }}
-      />
-    </Box>
-  );
-}
-
 export interface ProjectTileProps {
   project: Project;
   colorOverride?: string;
@@ -98,6 +22,7 @@ export interface ProjectTileProps {
   index: number;
   viewMode?: ViewMode;
   onContextMenu: (project: Project, x: number, y: number) => void;
+  onOpen: (project: Project) => void;
 }
 
 export function ProjectTile({
@@ -107,6 +32,7 @@ export function ProjectTile({
   index,
   viewMode = "grid",
   onContextMenu,
+  onOpen,
 }: ProjectTileProps) {
   const color = colorOverride ?? accentColor;
   const { label: statusLabel, dot } = STATUS_CONFIG[project.status];
@@ -117,6 +43,10 @@ export function ProjectTile({
   function handleContextMenu(e: React.MouseEvent) {
     e.preventDefault();
     onContextMenu(project, e.clientX, e.clientY);
+  }
+
+  function handleClick() {
+    onOpen(project);
   }
 
   const statusBadge = (
@@ -178,6 +108,7 @@ export function ProjectTile({
         delay: index * 0.05,
       }}
       whileHover={{ y: -2, transition: { type: "spring", stiffness: 300, damping: 28 } }}
+      onClick={handleClick}
       onContextMenu={handleContextMenu}
       sx={{
         position: "relative",

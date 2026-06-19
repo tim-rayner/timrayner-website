@@ -10,6 +10,7 @@ import { filterProjects, type StatusFilter, type ViewMode } from "./ProjectSearc
 import { ProjectSearch } from "./ProjectSearch";
 import { ProjectTile } from "./ProjectTile";
 import { ProjectContextMenu } from "./ProjectContextMenu";
+import { ProjectModal } from "./ProjectModal";
 
 const MotionBox = motion(Box);
 
@@ -26,6 +27,7 @@ export function ProjectsGrid() {
   const [colorOverrides, setColorOverrides] = useState<Record<string, string>>({});
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = filterProjects(PROJECTS, query, status);
 
@@ -45,6 +47,8 @@ export function ProjectsGrid() {
   );
 
   const handleCloseMenu = useCallback(() => setContextMenu(null), []);
+  const handleOpenModal = useCallback((project: Project) => setSelectedProject(project), []);
+  const handleCloseModal = useCallback(() => setSelectedProject(null), []);
 
   const handleColorChange = useCallback((projectId: string, color: string) => {
     setColorOverrides((prev) => ({ ...prev, [projectId]: color }));
@@ -98,6 +102,7 @@ export function ProjectsGrid() {
                 index={i}
                 viewMode={viewMode}
                 onContextMenu={handleContextMenu}
+                onOpen={handleOpenModal}
               />
             ))}
           </AnimatePresence>
@@ -149,6 +154,21 @@ export function ProjectsGrid() {
             }
             onClose={handleCloseMenu}
             onColorChange={handleColorChange}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Project detail modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectModal
+            key={selectedProject.id}
+            project={selectedProject}
+            accentColor={
+              colorOverrides[selectedProject.id] ??
+              getStatusColor(selectedProject.status)
+            }
+            onClose={handleCloseModal}
           />
         )}
       </AnimatePresence>

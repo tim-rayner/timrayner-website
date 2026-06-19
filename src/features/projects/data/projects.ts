@@ -12,6 +12,7 @@ export interface Project {
   href?: string;
   websiteUrl?: string;
   githubHref?: string;
+  npmUrl?: string;
   extensionHref?: string;
   company?: string;
   companyLogoUrl?: string;
@@ -69,6 +70,18 @@ export const PROJECTS: Project[] = (
       websiteUrl: "https://toolkit.artlist.io/image-video-generator",
       company: "Artlist",
       companyLogoUrl: "/AL.png",
+    },
+    {
+      id: "react-esign",
+      name: "React ESign",
+      tagline: "Handwritten e-signatures for React",
+      description:
+        "Lightweight, dependency-free React component for capturing handwritten signatures — ideal for e-signatures, form authentication, and user confirmations.",
+      logoChar: "RE",
+      accent: "info",
+      status: "live",
+      websiteUrl: "https://react-esign-docs.vercel.app/",
+      npmUrl: "https://www.npmjs.com/package/react-esign",
     },
     {
       id: "nobizz",
