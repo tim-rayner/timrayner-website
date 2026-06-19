@@ -42,8 +42,8 @@ const theme = createTheme({
       contrastText: "#0B0F1A", // 8.31:1 on info ✓
     },
     cta: {
-      main: "#FFD700",         // Signature Yellow — CTA buttons only (View Projects, Let's Work Together)
-      contrastText: "#0B0F1A", // 13.15:1 on cta ✓
+      main: "#7C5DFF",         // Royal Purple — CTA buttons only (View Projects, Let's Work Together)
+      contrastText: "#FFFFFF",
     },
   },
 });

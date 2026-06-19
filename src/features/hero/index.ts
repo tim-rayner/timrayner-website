@@ -1,2 +1,3 @@
 export { default as HeroSection } from "./HeroSection";
-export { default as ConnectForm } from "./ConnectForm";
+export { default as TechStackBanner } from "./TechStackBanner";
+export type { TechItem } from "./TechStackBanner";

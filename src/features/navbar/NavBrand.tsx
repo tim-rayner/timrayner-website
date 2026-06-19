@@ -22,9 +22,9 @@ export default function NavBrand({ logo }: NavBrandProps) {
     <Typography
       component="span"
       sx={{
-        fontSize: "1rem",
+        fontSize: "1.2rem",
         fontWeight: 700,
-        letterSpacing: "-0.02em",
+        letterSpacing: "-0.03em",
         color: "text.primary",
         userSelect: "none",
       }}

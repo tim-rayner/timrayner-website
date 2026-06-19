@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { Box, Button, Chip, IconButton, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import TechStackBanner from "./TechStackBanner";
 import Image from "next/image";
-import ConnectForm from "./ConnectForm";
 
 const MotionBox = motion(Box);
 
@@ -41,7 +42,7 @@ export default function HeroSection() {
         bgcolor: "background.default",
         display: "grid",
         gridTemplateColumns: { xs: "1fr", md: "55fr 45fr" },
-        gridTemplateRows: { xs: "50vh auto", md: "1fr" },
+        gridTemplateRows: { xs: "38dvh auto", md: "1fr" },
       }}
     >
       {/* Mobile only: full-width image strip at top */}
@@ -60,8 +61,12 @@ export default function HeroSection() {
           alt="Tim Rayner"
           fill
           priority
+          onContextMenu={(e) => e.preventDefault()}
           sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center calc(8% - 75px)" }}
+          style={{
+            objectFit: "cover",
+            objectPosition: "center 38%",
+          }}
         />
         {/* Bottom fade into background */}
         <Box
@@ -86,19 +91,110 @@ export default function HeroSection() {
           justifyContent: "center",
           alignItems: { xs: "center", md: "flex-start" },
           textAlign: { xs: "center", md: "left" },
+          width: "100%",
           px: { xs: 3, sm: 5, md: 8 },
-          pt: { xs: 5, md: "calc(64px + 40px)" },
-          pb: { xs: 8, md: 10 },
+          pt: { xs: 3, md: "calc(64px + 12px)" },
+          pb: { xs: 6, md: 10 },
         }}
       >
+        {/* Name block */}
+        <MotionBox
+          variants={itemVariants}
+          sx={{ mb: { xs: 1, md: 0.75 }, width: "100%" }}
+        >
+          {/* Eyebrow */}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { xs: "column", md: "row" },
+              alignItems: "center",
+              justifyContent: { xs: "center", md: "flex-start" },
+              gap: { xs: 1.25, md: 1.5 },
+              mb: { xs: 1, md: 1.5 },
+            }}
+          >
+            <Chip
+              icon={
+                <Box
+                  component="span"
+                  aria-hidden
+                  sx={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    bgcolor: "success.main",
+                    boxShadow: "0 0 0 2px rgba(0, 212, 196, 0.25)",
+                    animation: "availabilityPulse 2.4s ease-in-out infinite",
+                  }}
+                />
+              }
+              label="Available for new opportunities"
+              size="small"
+              sx={{
+                height: 26,
+                fontSize: "0.6875rem",
+                fontWeight: 600,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                bgcolor: "rgba(0, 212, 196, 0.1)",
+                color: "success.main",
+                border: "1px solid",
+                borderColor: "rgba(0, 212, 196, 0.35)",
+                borderRadius: 1,
+                "& .MuiChip-icon": {
+                  ml: 1,
+                  mr: -0.25,
+                },
+                "& .MuiChip-label": { px: 1.25 },
+                "@keyframes availabilityPulse": {
+                  "0%, 100%": { opacity: 1 },
+                  "50%": { opacity: 0.45 },
+                },
+              }}
+            />
+            <Typography
+              component="p"
+              sx={{
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "text.secondary",
+              }}
+            >
+              Norwich, UK
+            </Typography>
+          </Box>
+
+          <Typography
+            component="h1"
+            sx={{
+              fontSize: {
+                xs: "2.6rem",
+                sm: "3rem",
+                md: "3.4rem",
+                lg: "4.2rem",
+              },
+              fontWeight: { xs: 800, md: 300 },
+              lineHeight: 1.05,
+              letterSpacing: { xs: "-0.03em", md: "-0.02em" },
+              color: "text.primary",
+            }}
+          >
+            Tim Rayner
+          </Typography>
+        </MotionBox>
+
         {/* Role */}
-        <MotionBox variants={itemVariants} sx={{ mb: 2 }}>
+        <MotionBox variants={itemVariants} sx={{ mb: { xs: 1.5, md: 3.5 } }}>
           <Typography
             component="p"
             sx={{
-              fontSize: "0.875rem",
-              fontWeight: 400,
-              color: "text.secondary",
+              fontSize: { xs: "1.05rem", md: "1.1rem" },
+              fontWeight: 500,
+              letterSpacing: "0.01em",
+              color: "text.primary",
+              opacity: 0.7,
               lineHeight: 1.3,
             }}
           >
@@ -106,13 +202,16 @@ export default function HeroSection() {
           </Typography>
         </MotionBox>
 
-        {/* Headline */}
-        <MotionBox variants={itemVariants} sx={{ mb: 3 }}>
+        {/* Tagline — hidden on mobile */}
+        <MotionBox
+          variants={itemVariants}
+          sx={{ mb: { xs: 2, md: 1 }, display: { xs: "none", sm: "block" } }}
+        >
           <Typography
-            component="h1"
+            component="h2"
             sx={{
               fontSize: {
-                xs: "2.4rem",
+                xs: "2rem",
                 sm: "3rem",
                 md: "3.2rem",
                 lg: "3.8rem",
@@ -123,45 +222,198 @@ export default function HeroSection() {
               color: "text.primary",
             }}
           >
-            Building digital products, brands &{" "}
+            Self Taught
+            <br />
             <Box component="span" sx={{ color: "primary.main" }}>
-              scalable experiences.
+              Production Tested
             </Box>
           </Typography>
         </MotionBox>
 
+        {/* Divider — mobile only, between role and body */}
+        <Box
+          sx={{
+            display: { xs: "block", sm: "none" },
+            width: 64,
+            height: "1px",
+            bgcolor: "cta.main",
+            mx: "auto",
+            mb: 2,
+          }}
+        />
+
         {/* Supporting copy */}
-        <MotionBox variants={itemVariants} sx={{ mb: 5 }}>
+        <MotionBox
+          variants={itemVariants}
+          sx={{ mb: { xs: 0, sm: 2.5 }, width: "100%" }}
+        >
           <Typography
             sx={{
               color: "text.secondary",
               lineHeight: 1.75,
               fontSize: "1rem",
-              maxWidth: "48ch",
+              maxWidth: { xs: "44ch", md: "42ch" },
             }}
           >
-            I&apos;m a{" "}
-            <Box
-              component="strong"
-              sx={{ color: "text.primary", fontWeight: 600 }}
-            >
-              Full-Stack Software Engineer
-            </Box>{" "}
-            based in Norwich, Norfolk. I specialise in user experience, scalable
-            systems, and product-minded software delivery.
+            Self-taught engineer with 7+ years of experience designing and
+            delivering production software at scale.
           </Typography>
         </MotionBox>
 
-        {/* Form */}
+        {/* CTA block */}
         <MotionBox
           variants={itemVariants}
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: { xs: "center", md: "flex-start" },
-          }}
+          sx={{ width: "100%", mt: { xs: 3.5, sm: 0 } }}
         >
-          <ConnectForm />
+          {/* Mobile: View Work full-width; secondary row below */}
+          <Box
+            sx={{
+              display: { xs: "flex", sm: "none" },
+              flexDirection: "column",
+              gap: 1.5,
+            }}
+          >
+            <Button
+              component="a"
+              href="#work"
+              variant="contained"
+              color="cta"
+              fullWidth
+              sx={{
+                height: 44,
+                fontWeight: 700,
+                fontSize: "0.875rem",
+                borderRadius: 1.5,
+                letterSpacing: "0.01em",
+              }}
+            >
+              View My Work
+            </Button>
+            <Box sx={{ display: "flex", gap: 1.5 }}>
+              <Button
+                component="a"
+                href="/assets/pdf/2025-TR-CV.pdf"
+                download
+                variant="outlined"
+                fullWidth
+                sx={{
+                  height: 44,
+                  borderColor: "rgba(255,255,255,0.18)",
+                  color: "text.primary",
+                  fontSize: "0.875rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.04em",
+                  borderRadius: 1.5,
+                  transition: "border-color 0.2s ease, color 0.2s ease",
+                  "&:hover": {
+                    borderColor: "cta.main",
+                    color: "cta.main",
+                    bgcolor: "transparent",
+                  },
+                }}
+              >
+                Download CV
+              </Button>
+              <IconButton
+                component="a"
+                href="https://www.linkedin.com/in/tim-rayner/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View LinkedIn profile"
+                sx={{
+                  width: 44,
+                  height: 44,
+                  flexShrink: 0,
+                  border: "1px solid",
+                  borderColor: "#FFFFFF",
+                  borderRadius: 1.5,
+                  color: "#FFFFFF",
+                  transition: "background-color 0.2s ease",
+                  "&:hover": { bgcolor: "primary.main", borderColor: "primary.main" },
+                }}
+              >
+                <LinkedInIcon fontSize="small" />
+              </IconButton>
+            </Box>
+          </Box>
+
+          {/* sm+: original single-row layout */}
+          <Box
+            sx={{
+              display: { xs: "none", sm: "flex" },
+              gap: 1.5,
+              alignItems: "center",
+              justifyContent: { sm: "center", md: "flex-start" },
+            }}
+          >
+            <Button
+              component="a"
+              href="#work"
+              variant="contained"
+              color="cta"
+              sx={{
+                height: 42,
+                px: 3,
+                fontWeight: 700,
+                fontSize: "0.875rem",
+                borderRadius: 1.5,
+                letterSpacing: "0.01em",
+                whiteSpace: "nowrap",
+              }}
+            >
+              View My Work
+            </Button>
+            <Button
+              component="a"
+              href="/assets/pdf/2025-TR-CV.pdf"
+              download
+              variant="outlined"
+              sx={{
+                height: 42,
+                px: 3,
+                borderColor: "rgba(255,255,255,0.18)",
+                color: "text.primary",
+                fontSize: "0.875rem",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+                borderRadius: 1.5,
+                whiteSpace: "nowrap",
+                transition: "border-color 0.2s ease, color 0.2s ease",
+                "&:hover": {
+                  borderColor: "cta.main",
+                  color: "cta.main",
+                  bgcolor: "transparent",
+                },
+              }}
+            >
+              Download CV
+            </Button>
+            <IconButton
+              component="a"
+              href="https://www.linkedin.com/in/tim-rayner/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View LinkedIn profile"
+              sx={{
+                width: 42,
+                height: 42,
+                flexShrink: 0,
+                border: "1px solid",
+                borderColor: "#FFFFFF",
+                borderRadius: 1.5,
+                color: "#FFFFFF",
+                transition: "background-color 0.2s ease",
+                "&:hover": { bgcolor: "primary.main", borderColor: "primary.main" },
+              }}
+            >
+              <LinkedInIcon fontSize="small" />
+            </IconButton>
+          </Box>
+        </MotionBox>
+
+        {/* Tech stack banner — desktop only */}
+        <MotionBox variants={itemVariants}>
+          <TechStackBanner />
         </MotionBox>
       </MotionBox>
 
@@ -181,8 +433,12 @@ export default function HeroSection() {
           alt=""
           fill
           priority
+          onContextMenu={(e) => e.preventDefault()}
           sizes="45vw"
-          style={{ objectFit: "cover", objectPosition: "center calc(50% + 150px)" }}
+          style={{
+            objectFit: "cover",
+            objectPosition: "center calc(50% + 150px)",
+          }}
         />
         {/* Horizontal left-edge fade into content */}
         <Box
@@ -190,7 +446,8 @@ export default function HeroSection() {
             position: "absolute",
             inset: 0,
             width: 180,
-            background: "linear-gradient(to right, #0B0F1A 0%, transparent 100%)",
+            background:
+              "linear-gradient(to right, #0B0F1A 0%, transparent 100%)",
             pointerEvents: "none",
             zIndex: 1,
           }}
