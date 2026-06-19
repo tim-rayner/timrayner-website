@@ -65,7 +65,7 @@ export default function HeroSection() {
           sizes="100vw"
           style={{
             objectFit: "cover",
-            objectPosition: "center 25%",
+            objectPosition: "center 32%",
           }}
         />
         {/* Bottom fade into background */}
