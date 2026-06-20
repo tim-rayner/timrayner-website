@@ -1,11 +1,10 @@
 "use client";
 
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import PlaceIcon from "@mui/icons-material/Place";
 import { Box, Button, Chip, IconButton, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import TechStackBanner from "./TechStackBanner";
 import Image from "next/image";
+import TechStackBanner from "./TechStackBanner";
 
 const MotionBox = motion(Box);
 
@@ -154,27 +153,6 @@ export default function HeroSection() {
                 },
               }}
             />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 0.4,
-                color: "text.secondary",
-              }}
-            >
-              <PlaceIcon sx={{ fontSize: "0.875rem", opacity: 0.7 }} />
-              <Typography
-                component="span"
-                sx={{
-                  fontSize: "0.75rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Norwich, UK
-              </Typography>
-            </Box>
           </Box>
 
           <Typography
@@ -216,7 +194,11 @@ export default function HeroSection() {
         {/* Supporting copy — mobile only */}
         <MotionBox
           variants={itemVariants}
-          sx={{ mb: { xs: 2, md: 0 }, width: "100%", display: { xs: "block", md: "none" } }}
+          sx={{
+            mb: { xs: 2, md: 0 },
+            width: "100%",
+            display: { xs: "block", md: "none" },
+          }}
         >
           <Typography
             sx={{
@@ -328,7 +310,10 @@ export default function HeroSection() {
                   borderRadius: 1.5,
                   color: "#FFFFFF",
                   transition: "background-color 0.2s ease",
-                  "&:hover": { bgcolor: "primary.main", borderColor: "primary.main" },
+                  "&:hover": {
+                    bgcolor: "primary.main",
+                    borderColor: "primary.main",
+                  },
                 }}
               >
                 <LinkedInIcon fontSize="small" />
@@ -402,7 +387,10 @@ export default function HeroSection() {
                 borderRadius: 1.5,
                 color: "#FFFFFF",
                 transition: "background-color 0.2s ease",
-                "&:hover": { bgcolor: "primary.main", borderColor: "primary.main" },
+                "&:hover": {
+                  bgcolor: "primary.main",
+                  borderColor: "primary.main",
+                },
               }}
             >
               <LinkedInIcon fontSize="small" />

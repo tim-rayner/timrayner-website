@@ -30,7 +30,6 @@ export function ProjectsSection() {
       sx={{
         bgcolor: "background.default",
         py: { xs: 10, md: 16 },
-        px: { xs: 3, sm: 5, md: 8 },
       }}
     >
       <Box sx={{ maxWidth: 1200, mx: "auto" }}>

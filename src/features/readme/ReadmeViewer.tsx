@@ -105,10 +105,23 @@ function MdP({ children }: { children: React.ReactNode }) {
 
 function MdBlockquote({ children }: { children: React.ReactNode }) {
   return (
-    <Box sx={{ borderLeft: "3px solid", borderColor: "primary.main", pl: 2.5, mb: 3 }}>
+    <Box
+      sx={{
+        borderLeft: "3px solid",
+        borderColor: "primary.main",
+        pl: 2.5,
+        mb: 3,
+      }}
+    >
       <Typography
         component="p"
-        sx={{ fontSize: { xs: "0.95rem", md: "1rem" }, lineHeight: 1.75, color: "text.disabled", fontStyle: "italic", m: 0 }}
+        sx={{
+          fontSize: { xs: "0.95rem", md: "1rem" },
+          lineHeight: 1.75,
+          color: "text.disabled",
+          fontStyle: "italic",
+          m: 0,
+        }}
       >
         {children}
       </Typography>
@@ -118,7 +131,14 @@ function MdBlockquote({ children }: { children: React.ReactNode }) {
 
 function MdHr() {
   return (
-    <Box component="hr" sx={{ border: "none", borderTop: "1px solid rgba(255, 255, 255, 0.07)", my: 3.5 }} />
+    <Box
+      component="hr"
+      sx={{
+        border: "none",
+        borderTop: "1px solid rgba(255, 255, 255, 0.07)",
+        my: 3.5,
+      }}
+    />
   );
 }
 
@@ -126,9 +146,34 @@ function MdUl({ items }: { items: string[] }) {
   return (
     <Box component="ul" sx={{ pl: 0, mb: 2.5, mt: 0, listStyle: "none" }}>
       {items.map((item, i) => (
-        <Box component="li" key={i} sx={{ display: "flex", gap: 1.25, mb: 1.25, alignItems: "flex-start" }}>
-          <Box sx={{ mt: "6px", width: 5, height: 5, borderRadius: "50%", bgcolor: "primary.main", flexShrink: 0 }} />
-          <Typography component="span" sx={{ fontSize: { xs: "0.92rem", md: "0.95rem" }, lineHeight: 1.8, color: "text.secondary" }}>
+        <Box
+          component="li"
+          key={i}
+          sx={{
+            display: "flex",
+            gap: 1.25,
+            mb: 1.25,
+            alignItems: "flex-start",
+          }}
+        >
+          <Box
+            sx={{
+              mt: "6px",
+              width: 5,
+              height: 5,
+              borderRadius: "50%",
+              bgcolor: "primary.main",
+              flexShrink: 0,
+            }}
+          />
+          <Typography
+            component="span"
+            sx={{
+              fontSize: { xs: "0.92rem", md: "0.95rem" },
+              lineHeight: 1.8,
+              color: "text.secondary",
+            }}
+          >
             {parseInline(item)}
           </Typography>
         </Box>
@@ -139,10 +184,27 @@ function MdUl({ items }: { items: string[] }) {
 
 function MdCode({ code }: { code: string }) {
   return (
-    <Box sx={{ bgcolor: "rgba(0, 0, 0, 0.35)", border: "1px solid rgba(255, 255, 255, 0.06)", borderRadius: 1.5, p: { xs: 2.5, md: 3 }, mb: 2.5, overflowX: "auto" }}>
+    <Box
+      sx={{
+        bgcolor: "rgba(0, 0, 0, 0.35)",
+        border: "1px solid rgba(255, 255, 255, 0.06)",
+        borderRadius: 1.5,
+        p: { xs: 2.5, md: 3 },
+        mb: 2.5,
+        overflowX: "auto",
+      }}
+    >
       <Box
         component="pre"
-        sx={{ fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace', fontSize: { xs: "0.78rem", md: "0.82rem" }, lineHeight: 1.75, m: 0, color: "text.secondary", whiteSpace: "pre" }}
+        sx={{
+          fontFamily:
+            '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace',
+          fontSize: { xs: "0.78rem", md: "0.82rem" },
+          lineHeight: 1.75,
+          m: 0,
+          color: "text.secondary",
+          whiteSpace: "pre",
+        }}
       >
         <Box component="code">{code}</Box>
       </Box>
@@ -165,12 +227,18 @@ function parseInline(text: string): React.ReactNode {
     const token = match[0];
     if (token.startsWith("**")) {
       parts.push(
-        <Box key={match.index} component="strong" sx={{ color: "text.primary", fontWeight: 600 }}>
+        <Box
+          key={match.index}
+          component="strong"
+          sx={{ color: "text.primary", fontWeight: 600 }}
+        >
           {token.slice(2, -2)}
-        </Box>
+        </Box>,
       );
     } else {
-      parts.push(<InlineCode key={match.index}>{token.slice(1, -1)}</InlineCode>);
+      parts.push(
+        <InlineCode key={match.index}>{token.slice(1, -1)}</InlineCode>,
+      );
     }
     lastIndex = match.index + token.length;
   }
@@ -205,7 +273,9 @@ function renderMarkdown(content: string): React.ReactNode[] {
       nodes.push(<MdH2 key={key++}>{parseInline(line.slice(3))}</MdH2>);
       i++;
     } else if (line.startsWith("> ")) {
-      nodes.push(<MdBlockquote key={key++}>{parseInline(line.slice(2))}</MdBlockquote>);
+      nodes.push(
+        <MdBlockquote key={key++}>{parseInline(line.slice(2))}</MdBlockquote>,
+      );
       i++;
     } else if (line.trim() === "---") {
       nodes.push(<MdHr key={key++} />);
@@ -241,7 +311,9 @@ function renderMarkdown(content: string): React.ReactNode[] {
         i++;
       }
       if (paragraphLines.length > 0) {
-        nodes.push(<MdP key={key++}>{parseInline(paragraphLines.join(" "))}</MdP>);
+        nodes.push(
+          <MdP key={key++}>{parseInline(paragraphLines.join(" "))}</MdP>,
+        );
       }
     }
   }
@@ -270,8 +342,16 @@ export function ReadmeViewer({ rawContent }: Props) {
   }
 
   const actions = [
-    { key: "raw", label: "Raw", onClick: undefined as (() => void) | undefined },
-    { key: "copy", label: copied ? "Copied!" : "Copy raw file", onClick: handleCopy },
+    {
+      key: "raw",
+      label: "Raw",
+      onClick: undefined as (() => void) | undefined,
+    },
+    {
+      key: "copy",
+      label: copied ? "Copied!" : "Copy raw file",
+      onClick: handleCopy,
+    },
   ];
 
   const stats = ["1 contributor", `${lineCount} lines`, "updated recently"];
@@ -282,28 +362,49 @@ export function ReadmeViewer({ rawContent }: Props) {
       component="section"
       id="readme"
       aria-label="README"
-      sx={{ bgcolor: "background.default", py: { xs: 10, md: 14 }, px: { xs: 3, sm: 5, md: 8 } }}
+      sx={{ bgcolor: "background.default", py: { xs: 10, md: 14 } }}
     >
       <Box sx={{ maxWidth: 1200, mx: "auto" }}>
-        <Typography
-          component="h3"
-          sx={{
-            mb: { xs: 7, md: 10 },
-            fontSize: { xs: "2.4rem", sm: "3rem", md: "3.5rem" },
-            fontWeight: 800,
-            lineHeight: 1.02,
-            letterSpacing: "-0.035em",
-            color: "text.primary",
-          }}
-        >
-          How I think
-        </Typography>
+        {/* Section header */}
+        <Box sx={{ mb: { xs: 8, md: 12 } }}>
+          <Typography
+            component="span"
+            sx={{
+              display: "block",
+              fontSize: "0.68rem",
+              fontWeight: 700,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: "primary.main",
+              mb: 1.25,
+            }}
+          >
+            A bit about me...
+          </Typography>
+          <Typography
+            component="h2"
+            sx={{
+              fontSize: { xs: "2.1rem", md: "2.8rem" },
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              color: "text.primary",
+              mb: 1.5,
+            }}
+          >
+            How I Work
+          </Typography>
+        </Box>
 
         <MotionBox
           initial={{ opacity: 0, y: 36 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ type: "spring", stiffness: 72, damping: 22 }}
-          sx={{ border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: 2, overflow: "hidden" }}
+          sx={{
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRadius: 2,
+            overflow: "hidden",
+          }}
         >
           {/* File header */}
           <Box
@@ -325,10 +426,12 @@ export function ReadmeViewer({ rawContent }: Props) {
                 [
                   { text: "timrayner", muted: false, bold: false },
                   { text: "/", muted: true, bold: false },
-                  { text: "timrayner", muted: false, bold: false },
-                  { text: "/", muted: true, bold: false },
                   { text: "README.md", muted: false, bold: true },
-                ] satisfies Array<{ text: string; muted: boolean; bold: boolean }>
+                ] satisfies Array<{
+                  text: string;
+                  muted: boolean;
+                  bold: boolean;
+                }>
               ).map((seg, i) => (
                 <Typography
                   key={i}
@@ -336,7 +439,11 @@ export function ReadmeViewer({ rawContent }: Props) {
                   sx={{
                     fontSize: "0.78rem",
                     fontWeight: seg.bold ? 700 : seg.muted ? 400 : 500,
-                    color: seg.muted ? "text.disabled" : seg.bold ? "text.primary" : "secondary.main",
+                    color: seg.muted
+                      ? "text.disabled"
+                      : seg.bold
+                        ? "text.primary"
+                        : "secondary.main",
                     lineHeight: 1,
                   }}
                 >
@@ -359,9 +466,15 @@ export function ReadmeViewer({ rawContent }: Props) {
                     border: "1px solid rgba(255, 255, 255, 0.1)",
                     bgcolor: "rgba(255, 255, 255, 0.04)",
                     cursor: onClick ? "pointer" : "default",
-                    transition: "background-color 0.15s, border-color 0.15s, transform 0.1s",
+                    transition:
+                      "background-color 0.15s, border-color 0.15s, transform 0.1s",
                     userSelect: "none",
-                    "&:hover": onClick ? { bgcolor: "rgba(255, 255, 255, 0.08)", borderColor: "rgba(255, 255, 255, 0.16)" } : {},
+                    "&:hover": onClick
+                      ? {
+                          bgcolor: "rgba(255, 255, 255, 0.08)",
+                          borderColor: "rgba(255, 255, 255, 0.16)",
+                        }
+                      : {},
                     "&:active": onClick ? { transform: "scale(0.97)" } : {},
                   }}
                 >
@@ -370,7 +483,10 @@ export function ReadmeViewer({ rawContent }: Props) {
                       fontSize: "0.7rem",
                       fontWeight: 500,
                       lineHeight: 1,
-                      color: key === "copy" && copied ? "success.main" : "text.secondary",
+                      color:
+                        key === "copy" && copied
+                          ? "success.main"
+                          : "text.secondary",
                       transition: "color 0.15s",
                     }}
                   >
@@ -394,19 +510,43 @@ export function ReadmeViewer({ rawContent }: Props) {
             }}
           >
             {stats.map((stat, i) => (
-              <Box key={stat} sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-                <Typography sx={{ fontSize: "0.7rem", color: "text.disabled", lineHeight: 1 }}>
+              <Box
+                key={stat}
+                sx={{ display: "flex", alignItems: "center", gap: 1.5 }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "0.7rem",
+                    color: "text.disabled",
+                    lineHeight: 1,
+                  }}
+                >
                   {stat}
                 </Typography>
                 {i < stats.length - 1 && (
-                  <Typography sx={{ fontSize: "0.7rem", color: "text.disabled", lineHeight: 1, opacity: 0.35 }}>·</Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "0.7rem",
+                      color: "text.disabled",
+                      lineHeight: 1,
+                      opacity: 0.35,
+                    }}
+                  >
+                    ·
+                  </Typography>
                 )}
               </Box>
             ))}
           </Box>
 
           {/* Rendered markdown */}
-          <Box sx={{ bgcolor: "background.paper", px: { xs: 3, sm: 4.5, md: 6 }, py: { xs: 4, md: 5.5 } }}>
+          <Box
+            sx={{
+              bgcolor: "background.paper",
+              px: { xs: 3, sm: 4.5, md: 6 },
+              py: { xs: 4, md: 5.5 },
+            }}
+          >
             {renderMarkdown(rawContent)}
           </Box>
         </MotionBox>

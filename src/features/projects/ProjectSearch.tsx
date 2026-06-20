@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import ViewModuleOutlinedIcon from "@mui/icons-material/ViewModuleOutlined";
 import ViewListOutlinedIcon from "@mui/icons-material/ViewListOutlined";
+import NoteAddOutlinedIcon from "@mui/icons-material/NoteAddOutlined";
 import type { Project, ProjectStatus } from "./data/projects";
 
 export type ViewMode = "grid" | "list";
@@ -40,12 +41,14 @@ interface ProjectSearchProps {
   onFilterChange: (query: string, status: StatusFilter) => void;
   viewMode?: ViewMode;
   onViewChange?: (mode: ViewMode) => void;
+  onAddNew?: () => void;
 }
 
 export function ProjectSearch({
   onFilterChange,
   viewMode = "grid",
   onViewChange,
+  onAddNew,
 }: ProjectSearchProps) {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
@@ -178,12 +181,53 @@ export function ProjectSearch({
         })}
       </Box>
 
-      {/* View toggle — desktop only */}
-      {onViewChange && (
+      {/* Right-side controls */}
+      {(onAddNew || onViewChange) && (
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, ml: "auto" }}>
+          {/* Add new CTA */}
+          {onAddNew && (
+            <Box
+              component="button"
+              aria-label="Add new project enquiry"
+              onClick={onAddNew}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.75,
+                px: 1.5,
+                height: 34,
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                letterSpacing: "0.02em",
+                borderRadius: 1.25,
+                border: "1px solid rgba(124,93,255,0.5)",
+                bgcolor: "rgba(124,93,255,0.22)",
+                color: "#C4B5FD",
+                cursor: "pointer",
+                transition: "all 0.16s ease",
+                "&:hover": {
+                  bgcolor: "rgba(124,93,255,0.32)",
+                  borderColor: "rgba(124,93,255,0.7)",
+                  color: "#DDD6FE",
+                },
+                "&:active": { transform: "scale(0.97)" },
+              }}
+            >
+              <NoteAddOutlinedIcon sx={{ fontSize: 14 }} />
+              <Typography
+                component="span"
+                sx={{ fontSize: "inherit", fontWeight: "inherit", color: "inherit", lineHeight: 1 }}
+              >
+                + Add new
+              </Typography>
+            </Box>
+          )}
+
+          {/* View toggle — desktop only */}
+          {onViewChange && (
         <Box
           sx={{
             display: { xs: "none", sm: "flex" },
-            ml: "auto",
             gap: 0.25,
             p: 0.375,
             borderRadius: 1.25,
@@ -229,6 +273,8 @@ export function ProjectSearch({
               </Box>
             );
           })}
+          </Box>
+          )}
         </Box>
       )}
     </Box>

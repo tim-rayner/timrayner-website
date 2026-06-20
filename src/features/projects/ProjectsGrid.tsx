@@ -11,6 +11,7 @@ import { ProjectSearch } from "./ProjectSearch";
 import { ProjectTile } from "./ProjectTile";
 import { ProjectContextMenu } from "./ProjectContextMenu";
 import { ProjectModal } from "./ProjectModal";
+import { ContactModal } from "./ContactModal";
 
 const MotionBox = motion(Box);
 
@@ -28,6 +29,7 @@ export function ProjectsGrid() {
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [contactOpen, setContactOpen] = useState(false);
 
   const filteredProjects = filterProjects(PROJECTS, query, status);
 
@@ -72,6 +74,7 @@ export function ProjectsGrid() {
           onFilterChange={handleFilterChange}
           viewMode={viewMode}
           onViewChange={setViewMode}
+          onAddNew={() => setContactOpen(true)}
         />
       </Box>
 
@@ -170,6 +173,13 @@ export function ProjectsGrid() {
             }
             onClose={handleCloseModal}
           />
+        )}
+      </AnimatePresence>
+
+      {/* Contact / enquiry modal */}
+      <AnimatePresence>
+        {contactOpen && (
+          <ContactModal key="contact-modal" onClose={() => setContactOpen(false)} />
         )}
       </AnimatePresence>
     </Box>
