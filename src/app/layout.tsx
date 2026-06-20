@@ -43,6 +43,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${geist.variable} ${caveat.variable}`}>
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/tim-background.PNG"
+          fetchPriority="high"
+        />
+      </head>
       <body>
         <TrpcProvider>
           <MuiProvider>
