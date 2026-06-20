@@ -1,6 +1,22 @@
 export type ProjectAccent = "primary" | "secondary" | "success" | "info";
 export type ProjectStatus = "live" | "wip" | "concept";
 
+export type TechTag =
+  | "Next.js" | "React" | "TypeScript" | "tRPC" | "Zod"
+  | "Node.js" | "Hono" | "NestJS"
+  | "Supabase" | "Postgres" | "Drizzle" | "pgvector"
+  | "MUI" | "TanStack Query" | "Framer Motion"
+  | "OpenAI" | "LLM" | "RAG"
+  | "Chrome Extension" | "npm package"
+  | "BIM/IFC" | "Telegram" | "GraphQL";
+
+export type ProjectDomain =
+  | "construction"
+  | "hospitality"
+  | "creative-ai"
+  | "developer-tooling"
+  | "mobility";
+
 export interface Project {
   id: string;
   name: string;
@@ -16,6 +32,8 @@ export interface Project {
   extensionHref?: string;
   company?: string;
   companyLogoUrl?: string;
+  tech: TechTag[];
+  domains?: ProjectDomain[];
 }
 
 const STATUS_ORDER: Record<ProjectStatus, number> = {
@@ -36,6 +54,8 @@ export const PROJECTS: Project[] = (
       accent: "primary",
       status: "wip",
       websiteUrl: "https://structura-demo.vercel.app/",
+      tech: ["Next.js", "TypeScript", "BIM/IFC", "Telegram", "LLM"],
+      domains: ["construction"],
     },
     {
       id: "servaa",
@@ -47,6 +67,8 @@ export const PROJECTS: Project[] = (
       accent: "secondary",
       status: "wip",
       websiteUrl: "https://servaa.io/",
+      tech: ["Next.js", "TypeScript", "Supabase", "Drizzle", "tRPC", "LLM"],
+      domains: ["hospitality"],
     },
     {
       id: "threadvault",
@@ -57,6 +79,8 @@ export const PROJECTS: Project[] = (
       logoChar: "TV",
       accent: "success",
       status: "wip",
+      tech: ["Next.js", "TypeScript"],
+      domains: ["construction"],
     },
     {
       id: "artlist-ai-toolkit",
@@ -70,6 +94,8 @@ export const PROJECTS: Project[] = (
       websiteUrl: "https://toolkit.artlist.io/image-video-generator",
       company: "Artlist",
       companyLogoUrl: "/AL.png",
+      tech: ["React", "TypeScript", "OpenAI", "LLM"],
+      domains: ["creative-ai"],
     },
     {
       id: "react-esign",
@@ -82,6 +108,8 @@ export const PROJECTS: Project[] = (
       status: "live",
       websiteUrl: "https://react-esign-docs.vercel.app/",
       npmUrl: "https://www.npmjs.com/package/react-esign",
+      tech: ["React", "TypeScript", "npm package"],
+      domains: ["developer-tooling"],
     },
     {
       id: "nobizz",
@@ -94,6 +122,8 @@ export const PROJECTS: Project[] = (
       status: "live",
       extensionHref:
         "https://chromewebstore.google.com/detail/nobizz-tldr/ccikhaedglnfhgcghciemgflgpifdjik",
+      tech: ["Chrome Extension", "TypeScript"],
+      domains: ["developer-tooling"],
     },
     {
       id: "dreamdrive",
@@ -106,6 +136,8 @@ export const PROJECTS: Project[] = (
       status: "concept",
       githubHref: "https://github.com/tim-rayner/dream-drive",
       websiteUrl: "https://drivedream.vercel.app/",
+      tech: ["Next.js", "TypeScript", "OpenAI", "LLM"],
+      domains: ["creative-ai"],
     },
     {
       id: "startline",
@@ -116,6 +148,8 @@ export const PROJECTS: Project[] = (
       logoChar: "SL",
       accent: "primary",
       status: "concept",
+      tech: ["Next.js", "TypeScript"],
+      domains: ["mobility"],
     },
   ] as Project[]
 ).sort((a, b) => STATUS_ORDER[a.status] - STATUS_ORDER[b.status]);
