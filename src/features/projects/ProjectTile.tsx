@@ -164,6 +164,7 @@ export function ProjectTile({
           flex: viewMode === "list" ? 1 : { xs: 1, sm: "unset" },
           width: viewMode === "list" ? "auto" : { xs: "auto", sm: "100%" },
           minWidth: 0,
+          overflow: "hidden",
         }}
       >
         <Typography
@@ -184,6 +185,7 @@ export function ProjectTile({
         <Typography
           component="p"
           sx={{
+            display: { xs: "none", sm: "block" },
             fontSize: "0.6875rem",
             color: "rgba(255,255,255,0.35)",
             lineHeight: 1.3,
