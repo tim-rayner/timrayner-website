@@ -29,9 +29,9 @@ export const PROJECTS: Project[] = (
     {
       id: "structura",
       name: "Structura",
-      tagline: "Digital construction assistant",
+      tagline: "Digital Twin for QA and handover documentation",
       description:
-        "AI-powered BIM platform for the construction industry — automating IFC workflows, QA checks, and grout joint generation from a collaborative digital canvas.",
+        "3D BIM environment for QA insepection and handover documentation. Giving handover managers a clearer view into their evidence and progress tracking ",
       logoChar: "ST",
       accent: "primary",
       status: "wip",
@@ -51,9 +51,9 @@ export const PROJECTS: Project[] = (
     {
       id: "threadvault",
       name: "ThreadVault",
-      tagline: "Save and resurface X threads",
+      tagline: "Offline first architecture example",
       description:
-        "Personal archive for Twitter/X threads — clip, tag, and search with full-text indexing and Obsidian export.",
+        "A Simple Digital Construction QA tool for when making important documentation changes in an offline environment. Built to practice the concept of offline first architecture.",
       logoChar: "TV",
       accent: "success",
       status: "wip",
@@ -63,7 +63,7 @@ export const PROJECTS: Project[] = (
       name: "Artlist AI Toolkit",
       tagline: "AI tooling for content creators",
       description:
-        "Internal suite of AI tools built at Artlist — automating media tagging, similarity search, and content recommendation at scale.",
+        "Creative AI Suite for content creators, video editors and filmakers. Generate images, videos, voicovers, and music from text, or edit existing images, videos or audio files. Used by millions of creatives worldwide every day.",
       logoChar: "AI",
       accent: "success",
       status: "live",
@@ -86,9 +86,9 @@ export const PROJECTS: Project[] = (
     {
       id: "nobizz",
       name: "NoBizz",
-      tagline: "LinkedIn without the noise",
+      tagline: "Read articles without the nonesense",
       description:
-        "Chrome extension that strips sponsored posts, engagement bait, and algorithmic filler from your LinkedIn feed. Just the signal.",
+        "Chrome extension that strips sponsored posts, engagement bait, and algorithmic filler from articles and blog posts. Tells you exactly why you clicked on the page in seconds, rather than minutes scrolling nonesense.",
       logoChar: "NB",
       accent: "secondary",
       status: "live",
@@ -100,7 +100,7 @@ export const PROJECTS: Project[] = (
       name: "DreamDrive",
       tagline: "Your car. Any street. Any dream.",
       description:
-        "AI-curated road trip planner — scenic route curation, music mood matching, and offline-first itinerary export.",
+        "Creative AI Suite for car enthusiasts. Place your dream car, in any location you can find on Google Maps, and let the AI generate a realistic render of the car exact to the location selected.",
       logoChar: "DD",
       accent: "info",
       status: "concept",
@@ -110,9 +110,9 @@ export const PROJECTS: Project[] = (
     {
       id: "startline",
       name: "Startline",
-      tagline: "Zero-to-shipped in under an hour",
+      tagline: "Beryl powered sustainable commuting",
       description:
-        "Opinionated Next.js starter that wires up auth, database, payments, and deployment with a single CLI command.",
+        "Beryl powered sustainable commuting. Find the best way to get to work, based on your location, weather, and commute preferences.",
       logoChar: "SL",
       accent: "primary",
       status: "concept",

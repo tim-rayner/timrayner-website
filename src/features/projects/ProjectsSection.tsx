@@ -27,44 +27,20 @@ export function ProjectsSection() {
           }}
         >
           <Box>
-            <Box sx={{ mb: 2 }}>
-              <Box
-                sx={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 1.25,
-                  px: 1.5,
-                  py: 0.6,
-                  borderRadius: 1,
-                  border: "1px solid rgba(124, 93, 255, 0.3)",
-                  bgcolor: "rgba(124, 93, 255, 0.08)",
-                }}
-              >
-                <Box
-                  component="span"
-                  aria-hidden
-                  sx={{
-                    width: 5,
-                    height: 5,
-                    borderRadius: "50%",
-                    bgcolor: "primary.main",
-                  }}
-                />
-                <Typography
-                  component="span"
-                  sx={{
-                    fontSize: "0.6875rem",
-                    fontWeight: 700,
-                    letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: "primary.main",
-                    lineHeight: 1,
-                  }}
-                >
-                  Selected Work
-                </Typography>
-              </Box>
-            </Box>
+            <Typography
+              component="span"
+              sx={{
+                display: "block",
+                fontSize: "0.68rem",
+                fontWeight: 700,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "primary.main",
+                mb: 1.25,
+              }}
+            >
+              Selected Work
+            </Typography>
 
             <Typography
               component="h2"

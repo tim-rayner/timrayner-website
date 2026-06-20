@@ -1,10 +1,44 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
-// ─── Markdown primitives ────────────────────────────────────────────────────
+const PRINCIPLES = [
+  {
+    title: "User Experience First",
+    description:
+      "Software succeeds when it solves real problems and feels effortless to use.",
+  },
+  {
+    title: "Strongly Typed by Default",
+    description:
+      "I favour TypeScript, schema validation and end-to-end type safety to catch problems before they reach production.",
+  },
+  {
+    title: "Security & Reliability",
+    description:
+      "Authentication, authorisation and data protection are considered from day one, not added later.",
+  },
+  {
+    title: "Performance Matters",
+    description:
+      "Fast software creates trust. I optimise for responsiveness, scalability and efficient system design.",
+  },
+  {
+    title: "Pragmatic Architecture",
+    description:
+      "I start simple, validate early and introduce complexity only when it is justified by real requirements.",
+  },
+  {
+    title: "Continuous Learning",
+    description:
+      "Self-taught and constantly evolving, from frontend engineering and cloud infrastructure to AI and offline-first systems.",
+  },
+];
+
+const MONO =
+  '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace';
 
 function FileIcon() {
   return (
@@ -12,7 +46,7 @@ function FileIcon() {
       component="svg"
       viewBox="0 0 16 16"
       aria-hidden
-      sx={{ width: 15, height: 15, flexShrink: 0, mt: "1px" }}
+      sx={{ width: 14, height: 14, flexShrink: 0, color: "text.disabled" }}
     >
       <path
         fill="currentColor"
@@ -22,533 +56,211 @@ function FileIcon() {
   );
 }
 
-function InlineCode({ children }: { children: React.ReactNode }) {
+function CheckIcon() {
   return (
     <Box
-      component="code"
-      sx={{
-        fontFamily:
-          '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace',
-        fontSize: "0.83em",
-        px: 0.75,
-        py: 0.2,
-        borderRadius: "4px",
-        bgcolor: "rgba(124, 93, 255, 0.1)",
-        color: "info.main",
-        border: "1px solid rgba(124, 93, 255, 0.18)",
-      }}
+      component="svg"
+      viewBox="0 0 16 16"
+      aria-hidden
+      sx={{ width: 14, height: 14, flexShrink: 0, color: "success.main" }}
     >
-      {children}
+      <path
+        fill="currentColor"
+        d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"
+      />
     </Box>
   );
 }
 
-function MdH1({ children }: { children: React.ReactNode }) {
-  return (
-    <Typography
-      component="h1"
-      sx={{
-        fontSize: { xs: "1.65rem", md: "1.875rem" },
-        fontWeight: 700,
-        lineHeight: 1.25,
-        letterSpacing: "-0.022em",
-        color: "text.primary",
-        pb: 1.5,
-        mb: 2.5,
-        borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
-      }}
-    >
-      {children}
-    </Typography>
-  );
-}
-
-function MdH2({ children }: { children: React.ReactNode }) {
-  return (
-    <Typography
-      component="h2"
-      sx={{
-        fontSize: { xs: "1.1rem", md: "1.25rem" },
-        fontWeight: 600,
-        lineHeight: 1.35,
-        letterSpacing: "-0.015em",
-        color: "text.primary",
-        pb: 0.875,
-        mb: 1.75,
-        mt: 4,
-        borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
-      }}
-    >
-      {children}
-    </Typography>
-  );
-}
-
-function MdP({ children }: { children: React.ReactNode }) {
-  return (
-    <Typography
-      component="p"
-      sx={{
-        fontSize: { xs: "0.92rem", md: "0.95rem" },
-        lineHeight: 1.8,
-        color: "text.secondary",
-        m: 0,
-        mb: 2,
-      }}
-    >
-      {children}
-    </Typography>
-  );
-}
-
-function MdBlockquote({ children }: { children: React.ReactNode }) {
-  return (
-    <Box
-      sx={{
-        borderLeft: "3px solid",
-        borderColor: "primary.main",
-        pl: 2.5,
-        mb: 3,
-      }}
-    >
-      <Typography
-        component="p"
-        sx={{
-          fontSize: { xs: "0.95rem", md: "1rem" },
-          lineHeight: 1.75,
-          color: "text.disabled",
-          fontStyle: "italic",
-          m: 0,
-        }}
-      >
-        {children}
-      </Typography>
-    </Box>
-  );
-}
-
-function MdHr() {
-  return (
-    <Box
-      component="hr"
-      sx={{
-        border: "none",
-        borderTop: "1px solid rgba(255, 255, 255, 0.07)",
-        my: 3.5,
-      }}
-    />
-  );
-}
-
-function MdUl({ items }: { items: string[] }) {
-  return (
-    <Box component="ul" sx={{ pl: 0, mb: 2.5, mt: 0, listStyle: "none" }}>
-      {items.map((item, i) => (
-        <Box
-          component="li"
-          key={i}
-          sx={{
-            display: "flex",
-            gap: 1.25,
-            mb: 1.25,
-            alignItems: "flex-start",
-          }}
-        >
-          <Box
-            sx={{
-              mt: "6px",
-              width: 5,
-              height: 5,
-              borderRadius: "50%",
-              bgcolor: "primary.main",
-              flexShrink: 0,
-            }}
-          />
-          <Typography
-            component="span"
-            sx={{
-              fontSize: { xs: "0.92rem", md: "0.95rem" },
-              lineHeight: 1.8,
-              color: "text.secondary",
-            }}
-          >
-            {parseInline(item)}
-          </Typography>
-        </Box>
-      ))}
-    </Box>
-  );
-}
-
-function MdCode({ code }: { code: string }) {
-  return (
-    <Box
-      sx={{
-        bgcolor: "rgba(0, 0, 0, 0.35)",
-        border: "1px solid rgba(255, 255, 255, 0.06)",
-        borderRadius: 1.5,
-        p: { xs: 2.5, md: 3 },
-        mb: 2.5,
-        overflowX: "auto",
-      }}
-    >
-      <Box
-        component="pre"
-        sx={{
-          fontFamily:
-            '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace',
-          fontSize: { xs: "0.78rem", md: "0.82rem" },
-          lineHeight: 1.75,
-          m: 0,
-          color: "text.secondary",
-          whiteSpace: "pre",
-        }}
-      >
-        <Box component="code">{code}</Box>
-      </Box>
-    </Box>
-  );
-}
-
-// ─── Inline parser ───────────────────────────────────────────────────────────
-
-function parseInline(text: string): React.ReactNode {
-  const regex = /(\*\*[^*]+\*\*|`[^`]+`)/g;
-  const parts: React.ReactNode[] = [];
-  let lastIndex = 0;
-  let match;
-
-  while ((match = regex.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index));
-    }
-    const token = match[0];
-    if (token.startsWith("**")) {
-      parts.push(
-        <Box
-          key={match.index}
-          component="strong"
-          sx={{ color: "text.primary", fontWeight: 600 }}
-        >
-          {token.slice(2, -2)}
-        </Box>,
-      );
-    } else {
-      parts.push(
-        <InlineCode key={match.index}>{token.slice(1, -1)}</InlineCode>,
-      );
-    }
-    lastIndex = match.index + token.length;
-  }
-
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex));
-  }
-
-  return parts;
-}
-
-// ─── Block parser ────────────────────────────────────────────────────────────
-
-function renderMarkdown(content: string): React.ReactNode[] {
-  const nodes: React.ReactNode[] = [];
-  const lines = content.split("\n");
-  let i = 0;
-  let key = 0;
-
-  while (i < lines.length) {
-    const line = lines[i];
-
-    if (!line.trim()) {
-      i++;
-      continue;
-    }
-
-    if (line.startsWith("# ")) {
-      nodes.push(<MdH1 key={key++}>{parseInline(line.slice(2))}</MdH1>);
-      i++;
-    } else if (line.startsWith("## ")) {
-      nodes.push(<MdH2 key={key++}>{parseInline(line.slice(3))}</MdH2>);
-      i++;
-    } else if (line.startsWith("> ")) {
-      nodes.push(
-        <MdBlockquote key={key++}>{parseInline(line.slice(2))}</MdBlockquote>,
-      );
-      i++;
-    } else if (line.trim() === "---") {
-      nodes.push(<MdHr key={key++} />);
-      i++;
-    } else if (line.startsWith("```")) {
-      i++;
-      const codeLines: string[] = [];
-      while (i < lines.length && !lines[i].startsWith("```")) {
-        codeLines.push(lines[i]);
-        i++;
-      }
-      i++;
-      nodes.push(<MdCode key={key++} code={codeLines.join("\n")} />);
-    } else if (line.startsWith("- ")) {
-      const items: string[] = [];
-      while (i < lines.length && lines[i].startsWith("- ")) {
-        items.push(lines[i].slice(2));
-        i++;
-      }
-      nodes.push(<MdUl key={key++} items={items} />);
-    } else {
-      const paragraphLines: string[] = [];
-      while (
-        i < lines.length &&
-        lines[i].trim() &&
-        !lines[i].startsWith("#") &&
-        !lines[i].startsWith(">") &&
-        !lines[i].startsWith("- ") &&
-        !lines[i].startsWith("```") &&
-        lines[i].trim() !== "---"
-      ) {
-        paragraphLines.push(lines[i]);
-        i++;
-      }
-      if (paragraphLines.length > 0) {
-        nodes.push(
-          <MdP key={key++}>{parseInline(paragraphLines.join(" "))}</MdP>,
-        );
-      }
-    }
-  }
-
-  return nodes;
-}
-
-// ─── Viewer ──────────────────────────────────────────────────────────────────
-
-interface Props {
-  rawContent: string;
-}
-
-export function ReadmeViewer({ rawContent }: Props) {
-  const ref = useRef<HTMLElement>(null);
-  const fileBoxRef = useRef<HTMLDivElement>(null);
-  const fileBoxVisible = useScrollReveal(fileBoxRef, { margin: "-80px" });
-  const [copied, setCopied] = useState(false);
-
-  const lineCount = rawContent.trim().split("\n").length;
-
-  function handleCopy() {
-    navigator.clipboard.writeText(rawContent).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  }
-
-  const actions = [
-    {
-      key: "raw",
-      label: "Raw",
-      onClick: undefined as (() => void) | undefined,
-    },
-    {
-      key: "copy",
-      label: copied ? "Copied!" : "Copy raw file",
-      onClick: handleCopy,
-    },
-  ];
-
-  const stats = ["1 contributor", `${lineCount} lines`, "updated recently"];
+export function ReadmeViewer() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const visible = useScrollReveal(containerRef, { margin: "-80px" });
 
   return (
     <Box
-      ref={ref}
       component="section"
       id="about"
-      aria-label="README"
-      sx={{ py: { xs: 8, md: 11 }, scrollMarginTop: { xs: "56px", md: "64px" } }}
+      aria-label="How I Build Software"
+      sx={{
+        py: { xs: 8, md: 11 },
+        scrollMarginTop: { xs: "56px", md: "64px" },
+      }}
     >
       <Box sx={{ maxWidth: 1200, mx: "auto" }}>
-        {/* Section header */}
-        <Box sx={{ mb: { xs: 5, md: 7 } }}>
-          <Typography
-            component="span"
-            sx={{
-              display: "block",
-              fontSize: "0.68rem",
-              fontWeight: 700,
-              letterSpacing: "0.16em",
-              textTransform: "uppercase",
-              color: "primary.main",
-              mb: 1.25,
-            }}
-          >
-            A bit about me...
-          </Typography>
-          <Typography
-            component="h2"
-            sx={{
-              fontSize: { xs: "2.1rem", md: "2.8rem" },
-              fontWeight: 800,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.05,
-              color: "text.primary",
-              mb: 1.5,
-            }}
-          >
-            How I Work
-          </Typography>
-        </Box>
-
         <Box
-          ref={fileBoxRef}
+          ref={containerRef}
           sx={{
             border: "1px solid rgba(255, 255, 255, 0.08)",
             borderRadius: 2,
             overflow: "hidden",
-            opacity: fileBoxVisible ? 1 : 0,
-            transform: fileBoxVisible ? "none" : "translateY(32px)",
+            opacity: visible ? 1 : 0,
+            transform: visible ? "none" : "translateY(28px)",
             transition:
               "opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
-          {/* File header */}
+          {/* File header bar */}
           <Box
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: 1.5,
               px: { xs: 2.5, md: 3 },
-              py: 1.5,
+              py: 1.375,
               bgcolor: "rgba(0, 0, 0, 0.28)",
               borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+              gap: 1,
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
-              <FileIcon />
-              {(
-                [
-                  { text: "timrayner", muted: false, bold: false },
-                  { text: "/", muted: true, bold: false },
-                  { text: "README.md", muted: false, bold: true },
-                ] satisfies Array<{
-                  text: string;
-                  muted: boolean;
-                  bold: boolean;
-                }>
-              ).map((seg, i) => (
-                <Typography
-                  key={i}
-                  component="span"
-                  sx={{
-                    fontSize: "0.78rem",
-                    fontWeight: seg.bold ? 700 : seg.muted ? 400 : 500,
-                    color: seg.muted
-                      ? "text.disabled"
-                      : seg.bold
-                        ? "text.primary"
-                        : "secondary.main",
-                    lineHeight: 1,
-                  }}
-                >
-                  {seg.text}
-                </Typography>
-              ))}
-            </Box>
-
-            <Box sx={{ display: "flex", gap: 0.75 }}>
-              {actions.map(({ key, label, onClick }) => (
-                <Box
-                  key={key}
-                  onClick={onClick}
-                  role={onClick ? "button" : undefined}
-                  tabIndex={onClick ? 0 : undefined}
-                  sx={{
-                    px: 1.5,
-                    py: 0.625,
-                    borderRadius: 1,
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    bgcolor: "rgba(255, 255, 255, 0.04)",
-                    cursor: onClick ? "pointer" : "default",
-                    transition:
-                      "background-color 0.15s, border-color 0.15s, transform 0.1s",
-                    userSelect: "none",
-                    "&:hover": onClick
-                      ? {
-                          bgcolor: "rgba(255, 255, 255, 0.08)",
-                          borderColor: "rgba(255, 255, 255, 0.16)",
-                        }
-                      : {},
-                    "&:active": onClick ? { transform: "scale(0.97)" } : {},
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "0.7rem",
-                      fontWeight: 500,
-                      lineHeight: 1,
-                      color:
-                        key === "copy" && copied
-                          ? "success.main"
-                          : "text.secondary",
-                      transition: "color 0.15s",
-                    }}
-                  >
-                    {label}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
+            <FileIcon />
+            <Typography
+              component="span"
+              sx={{
+                fontFamily: MONO,
+                fontSize: "0.75rem",
+                color: "secondary.main",
+                lineHeight: 1,
+              }}
+            >
+              timrayner
+            </Typography>
+            <Typography
+              component="span"
+              sx={{
+                fontFamily: MONO,
+                fontSize: "0.75rem",
+                color: "text.disabled",
+                lineHeight: 1,
+              }}
+            >
+              /
+            </Typography>
+            <Typography
+              component="span"
+              sx={{
+                fontFamily: MONO,
+                fontSize: "0.75rem",
+                fontWeight: 600,
+                color: "text.primary",
+                lineHeight: 1,
+              }}
+            >
+              README.md
+            </Typography>
           </Box>
 
-          {/* Stats bar */}
-          <Box
-            sx={{
-              px: { xs: 2.5, md: 3 },
-              py: 0.875,
-              bgcolor: "rgba(0, 0, 0, 0.14)",
-              borderBottom: "1px solid rgba(255, 255, 255, 0.04)",
-              display: "flex",
-              alignItems: "center",
-              gap: 1.5,
-            }}
-          >
-            {stats.map((stat, i) => (
-              <Box
-                key={stat}
-                sx={{ display: "flex", alignItems: "center", gap: 1.5 }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: "0.7rem",
-                    color: "text.disabled",
-                    lineHeight: 1,
-                  }}
-                >
-                  {stat}
-                </Typography>
-                {i < stats.length - 1 && (
-                  <Typography
-                    sx={{
-                      fontSize: "0.7rem",
-                      color: "text.disabled",
-                      lineHeight: 1,
-                      opacity: 0.35,
-                    }}
-                  >
-                    ·
-                  </Typography>
-                )}
-              </Box>
-            ))}
-          </Box>
-
-          {/* Rendered markdown */}
+          {/* README body */}
           <Box
             sx={{
               bgcolor: "background.paper",
               px: { xs: 3, sm: 4.5, md: 6 },
-              py: { xs: 4, md: 5.5 },
+              py: { xs: 4, md: 5 },
             }}
           >
-            {renderMarkdown(rawContent)}
+            <Typography
+              component="h2"
+              sx={{
+                fontSize: { xs: "1.5rem", md: "1.75rem" },
+                fontWeight: 700,
+                letterSpacing: "-0.022em",
+                lineHeight: 1.25,
+                color: "text.primary",
+                pb: 1.5,
+                mb: 2,
+                borderBottom: "1px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              How I Build Software
+            </Typography>
+
+            <Typography
+              component="p"
+              sx={{
+                fontSize: { xs: "0.92rem", md: "0.95rem" },
+                lineHeight: 1.8,
+                color: "text.secondary",
+                mb: 3,
+                maxWidth: "68ch",
+              }}
+            >
+              Over 7+ years building products across startups, SaaS and
+              enterprise teams, these are the principles that consistently shape
+              my work.
+            </Typography>
+
+            <Box
+              component="hr"
+              sx={{
+                border: "none",
+                borderTop: "1px solid rgba(255,255,255,0.07)",
+                mb: 3,
+              }}
+            />
+
+            <Box component="ul" sx={{ listStyle: "none", p: 0, m: 0 }}>
+              {PRINCIPLES.map((principle, i) => (
+                <Box
+                  component="li"
+                  key={principle.title}
+                  sx={{
+                    display: "flex",
+                    gap: 2,
+                    alignItems: "flex-start",
+                    py: 1.875,
+                    borderBottom:
+                      i < PRINCIPLES.length - 1
+                        ? "1px solid rgba(255,255,255,0.05)"
+                        : "none",
+                    transition:
+                      "transform 0.18s cubic-bezier(0.22,1,0.36,1)",
+                    "&:hover": {
+                      transform: "translateX(4px)",
+                      "& .principle-title": {
+                        color: "text.primary",
+                      },
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      mt: "3px",
+                      flexShrink: 0,
+                      display: "flex",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <CheckIcon />
+                  </Box>
+                  <Box>
+                    <Typography
+                      className="principle-title"
+                      component="span"
+                      sx={{
+                        display: "block",
+                        fontSize: { xs: "0.9rem", md: "0.9375rem" },
+                        fontWeight: 600,
+                        color: "rgba(255,255,255,0.82)",
+                        mb: 0.375,
+                        lineHeight: 1.4,
+                        transition: "color 0.18s",
+                      }}
+                    >
+                      {principle.title}
+                    </Typography>
+                    <Typography
+                      component="span"
+                      sx={{
+                        display: "block",
+                        fontSize: { xs: "0.84rem", md: "0.875rem" },
+                        lineHeight: 1.7,
+                        color: "text.secondary",
+                      }}
+                    >
+                      {principle.description}
+                    </Typography>
+                  </Box>
+                </Box>
+              ))}
+            </Box>
           </Box>
         </Box>
       </Box>

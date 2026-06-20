@@ -9,7 +9,6 @@ import { Box } from "@mui/material";
 
 interface Props {
   serverMessage: string;
-  rawReadme: string;
 }
 
 function SectionDivider() {
@@ -26,14 +25,14 @@ function SectionDivider() {
   );
 }
 
-export default function HomeClient({ serverMessage: _, rawReadme }: Props) {
+export default function HomeClient({ serverMessage: _ }: Props) {
   return (
     <>
       <HeroSection />
       <Box sx={{ px: { xs: 3, sm: 5, md: 8 } }}>
         <ProjectsSection />
         <SectionDivider />
-        <ReadmeViewer rawContent={rawReadme} />
+        <ReadmeViewer />
         <SectionDivider />
         <CareerSnapshot />
         <SectionDivider />

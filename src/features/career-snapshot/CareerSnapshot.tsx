@@ -1,9 +1,9 @@
 "use client";
 
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Box, Chip, Typography } from "@mui/material";
 import Image from "next/image";
 import { useRef } from "react";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const ACCENT = {
   secondary: {
@@ -44,7 +44,7 @@ const HISTORY = [
     logo: "/AL.png",
     logoBg: "#0B0F1A",
     summary:
-      "Shipping features across the full stack for a global creative asset platform used by millions of creators. Recently stepped into leading a cross-functional AI initiative team — integrating emerging AI tools to shape the next generation of content creation.",
+      "Shipped features across the full stack for Artlist.io - a global creative asset platform used by millions of creators daily. </br> </br> Halfway into my time here I had the oppurtunity to lead the development of the Artlist AI Toolkit alongisde my colleague. We built the foundtations of yet another platform now used by millions of people worldwide, contributing to Artlist's 300m ARR growth.",
     tags: [
       "Next.js",
       "Nest.js",
@@ -65,7 +65,7 @@ const HISTORY = [
     isCurrent: false,
     logo: "https://media.licdn.com/dms/image/v2/C4E0BAQFeeZ02QCGz8w/company-logo_200_200/company-logo_200_200/0/1663758987311/mobilityways_logo?e=2147483647&v=beta&t=YXPRfzJm1fNrrWiOh5FTAgGs8ZWaF4NVPAMp_k3373Q",
     summary:
-      "Sharpened frontend craft across Vue 3, React Native, and legacy templating systems. Built a reputation for precision-grade UI delivery and became the team's first call for anything frontend.",
+      "Sharpened frontend craft across Vue 3, React Native, and legacy templating systems. Built a reputation for precision-grade UI delivery and helped redefine the companies B2B digital strategy.",
     tags: [
       "Vue 3",
       "React Native",
@@ -97,7 +97,7 @@ const HISTORY = [
     isCurrent: false,
     logo: "https://media.licdn.com/dms/image/v2/C4E0BAQE0_qXjPmCHSw/company-logo_200_200/company-logo_200_200/0/1630646319463/crisp_malt_logo?e=2147483647&v=beta&t=LVfNRhI1yqvnHMPH5vTwLHUtwVVaOyPzD65xCgxrAY0",
     summary:
-      "Where it started. Joined as an apprentice, completed with distinction, and was promoted to lead web developer — migrating legacy systems to Microsoft Azure and shipping full-stack solutions across the business.",
+      "Where it started. Joined as an apprentice, completed with distinction, and was promoted to frontend developer — migrating legacy/local systems to Microsoft Azure and shipping full-stack solutions across the business.",
     tags: [
       "React",
       "C#",
@@ -119,7 +119,9 @@ interface EntryCardProps {
 function EntryCard({ entry, index }: EntryCardProps) {
   const accent = ACCENT[entry.accentKey];
   const cardRef = useRef<HTMLDivElement>(null);
-  const visible = useScrollReveal(cardRef as React.RefObject<HTMLElement>, { margin: "-60px" });
+  const visible = useScrollReveal(cardRef as React.RefObject<HTMLElement>, {
+    margin: "-60px",
+  });
   const delay = index * 80;
 
   return (
@@ -249,15 +251,15 @@ function EntryCard({ entry, index }: EntryCardProps) {
 
       {/* Summary */}
       <Typography
+        component="div"
         sx={{
           fontSize: "0.875rem",
           color: "text.secondary",
           lineHeight: 1.75,
           mb: 2,
         }}
-      >
-        {entry.summary}
-      </Typography>
+        dangerouslySetInnerHTML={{ __html: entry.summary }}
+      />
 
       {/* Tags */}
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.75 }}>
@@ -405,8 +407,8 @@ export default function CareerSnapshot() {
               maxWidth: "46ch",
             }}
           >
-            From apprentice to AI initiative lead — 7+ years of compounding
-            full-stack experience across scale.
+            From apprentice to trusted engineer... 7+ years designing, building
+            and scaling software across growing teams and products.
           </Typography>
         </Box>
 

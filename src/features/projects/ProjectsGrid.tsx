@@ -88,9 +88,9 @@ export function ProjectsGrid() {
                 ? "1fr"
                 : {
                     xs: "1fr",
-                    sm: "repeat(3, 1fr)",
-                    md: "repeat(4, 1fr)",
-                    lg: "repeat(5, 1fr)",
+                    sm: "repeat(3, minmax(0, 1fr))",
+                    md: "repeat(4, minmax(0, 1fr))",
+                    lg: "repeat(5, minmax(0, 1fr))",
                   },
             gap: viewMode === "list" ? 0.75 : { xs: 0.75, sm: 1.5 },
           }}

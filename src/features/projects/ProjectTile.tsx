@@ -116,6 +116,7 @@ export function ProjectTile({
         gap: viewMode === "list" ? 1.5 : { xs: 1.5, sm: 1.25 },
         p: viewMode === "list" ? "10px 14px" : { xs: "10px 14px", sm: 2.5 },
         borderRadius: viewMode === "list" ? 1.5 : { xs: 1.5, sm: 2.5 },
+        minHeight: viewMode === "list" ? "auto" : { xs: "auto", sm: "160px" },
         border: "1px solid rgba(255,255,255,0.06)",
         bgcolor: "rgba(255,255,255,0.025)",
         cursor: "pointer",
@@ -130,7 +131,7 @@ export function ProjectTile({
         },
       }}
     >
-      {companyTooltip && (
+      {companyTooltip && viewMode !== "list" && (
         <Tooltip title={companyTooltip} placement="top" arrow>
           <StarIcon
             aria-label={companyTooltip}
@@ -195,6 +196,15 @@ export function ProjectTile({
           {project.tagline}
         </Typography>
       </Box>
+
+      {companyTooltip && viewMode === "list" && (
+        <Tooltip title={companyTooltip} placement="top" arrow>
+          <StarIcon
+            aria-label={companyTooltip}
+            sx={{ fontSize: 14, color, opacity: 0.85, flexShrink: 0, display: "block" }}
+          />
+        </Tooltip>
+      )}
 
       {/* Status badge — pushed right on mobile */}
       <Box sx={{ ml: { xs: "auto", sm: 0 } }}>{statusBadge}</Box>
