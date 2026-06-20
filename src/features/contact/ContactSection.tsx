@@ -116,8 +116,8 @@ export default function ContactSection() {
       id="contact"
       aria-label="Contact"
       sx={{
-        pt: { xs: 8, md: 11 },
-        pb: { xs: 8, md: 11 },
+        pt: { xs: 5, md: 11 },
+        pb: { xs: 5, md: 11 },
       }}
     >
       <Box

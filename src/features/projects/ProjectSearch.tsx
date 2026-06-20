@@ -68,215 +68,215 @@ export function ProjectSearch({
     onFilterChange("", status);
   }
 
-  return (
+  const searchInput = (
     <Box
       sx={{
         display: "flex",
         alignItems: "center",
-        gap: 1.5,
-        flexWrap: "wrap",
+        gap: 1,
+        px: 1.5,
+        py: 0.75,
+        borderRadius: 1.5,
+        border: "1px solid rgba(255,255,255,0.08)",
+        bgcolor: "rgba(255,255,255,0.04)",
+        flex: 1,
+        minWidth: 0,
+        transition: "border-color 0.2s ease, background-color 0.2s ease",
+        "&:focus-within": {
+          borderColor: "rgba(124, 93, 255, 0.4)",
+          bgcolor: "rgba(255,255,255,0.06)",
+        },
       }}
     >
-      {/* Search input */}
-      <Box
+      <SearchIcon sx={{ fontSize: 15, color: "rgba(255,255,255,0.35)", flexShrink: 0 }} />
+      <InputBase
+        value={query}
+        onChange={(e) => handleQueryChange(e.target.value)}
+        placeholder="Filter projects…"
+        inputProps={{ "aria-label": "filter projects" }}
         sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 1,
-          px: 1.5,
-          py: 0.75,
-          borderRadius: 1.5,
-          border: "1px solid rgba(255,255,255,0.08)",
-          bgcolor: "rgba(255,255,255,0.04)",
-          minWidth: 220,
-          transition: "border-color 0.2s ease, background-color 0.2s ease",
-          "&:focus-within": {
-            borderColor: "rgba(124, 93, 255, 0.4)",
-            bgcolor: "rgba(255,255,255,0.06)",
-          },
+          flex: 1,
+          minWidth: 0,
+          fontSize: "0.8125rem",
+          color: "text.primary",
+          "& input": { p: 0 },
+          "& input::placeholder": { color: "rgba(255,255,255,0.3)", opacity: 1 },
         }}
-      >
-        <SearchIcon sx={{ fontSize: 15, color: "rgba(255,255,255,0.35)", flexShrink: 0 }} />
-        <InputBase
-          value={query}
-          onChange={(e) => handleQueryChange(e.target.value)}
-          placeholder="Filter projects…"
-          inputProps={{ "aria-label": "filter projects" }}
+      />
+      {query && (
+        <Box
+          component="button"
+          aria-label="clear"
+          onClick={handleClear}
           sx={{
-            flex: 1,
-            fontSize: "0.8125rem",
-            color: "text.primary",
-            "& input": { p: 0 },
-            "& input::placeholder": { color: "rgba(255,255,255,0.3)", opacity: 1 },
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 16,
+            height: 16,
+            border: "none",
+            borderRadius: "50%",
+            bgcolor: "rgba(255,255,255,0.15)",
+            color: "rgba(255,255,255,0.6)",
+            cursor: "pointer",
+            p: 0,
+            flexShrink: 0,
+            transition: "background-color 0.15s ease",
+            "&:hover": { bgcolor: "rgba(255,255,255,0.25)" },
           }}
-        />
-        {query && (
+        >
+          <CloseIcon sx={{ fontSize: 10 }} />
+        </Box>
+      )}
+    </Box>
+  );
+
+  const addNewButton = onAddNew && (
+    <Box
+      component="button"
+      aria-label="Add new project enquiry"
+      onClick={onAddNew}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: 0.75,
+        px: 1.5,
+        height: 34,
+        fontSize: "0.75rem",
+        fontWeight: 600,
+        letterSpacing: "0.02em",
+        borderRadius: 1.25,
+        border: "1px solid rgba(124,93,255,0.5)",
+        bgcolor: "rgba(124,93,255,0.22)",
+        color: "#C4B5FD",
+        cursor: "pointer",
+        flexShrink: 0,
+        whiteSpace: "nowrap",
+        transition: "all 0.16s ease",
+        "&:hover": {
+          bgcolor: "rgba(124,93,255,0.32)",
+          borderColor: "rgba(124,93,255,0.7)",
+          color: "#DDD6FE",
+        },
+        "&:active": { transform: "scale(0.97)" },
+      }}
+    >
+      <NoteAddOutlinedIcon sx={{ fontSize: 14 }} />
+      <Typography
+        component="span"
+        sx={{ fontSize: "inherit", fontWeight: "inherit", color: "inherit", lineHeight: 1 }}
+      >
+        + Add new
+      </Typography>
+    </Box>
+  );
+
+  const viewToggle = onViewChange && (
+    <Box
+      sx={{
+        display: { xs: "none", sm: "flex" },
+        gap: 0.25,
+        p: 0.375,
+        borderRadius: 1.25,
+        border: "1px solid rgba(255,255,255,0.08)",
+        bgcolor: "rgba(255,255,255,0.03)",
+        flexShrink: 0,
+      }}
+    >
+      {(
+        [
+          { mode: "grid" as ViewMode, Icon: ViewModuleOutlinedIcon, label: "Grid view" },
+          { mode: "list" as ViewMode, Icon: ViewListOutlinedIcon, label: "List view" },
+        ] as const
+      ).map(({ mode, Icon, label }) => {
+        const active = viewMode === mode;
+        return (
           <Box
+            key={mode}
             component="button"
-            aria-label="clear"
-            onClick={handleClear}
+            aria-label={label}
+            onClick={() => onViewChange(mode)}
             sx={{
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: 16,
-              height: 16,
+              width: 28,
+              height: 28,
               border: "none",
-              borderRadius: "50%",
-              bgcolor: "rgba(255,255,255,0.15)",
-              color: "rgba(255,255,255,0.6)",
+              borderRadius: 1,
+              bgcolor: active ? "rgba(124,93,255,0.2)" : "transparent",
+              color: active ? "#B39DFF" : "rgba(255,255,255,0.35)",
               cursor: "pointer",
               p: 0,
-              flexShrink: 0,
-              transition: "background-color 0.15s ease",
-              "&:hover": { bgcolor: "rgba(255,255,255,0.25)" },
+              transition: "background-color 0.15s ease, color 0.15s ease",
+              "&:hover": {
+                bgcolor: active ? "rgba(124,93,255,0.25)" : "rgba(255,255,255,0.07)",
+                color: active ? "#B39DFF" : "rgba(255,255,255,0.65)",
+              },
             }}
           >
-            <CloseIcon sx={{ fontSize: 10 }} />
+            <Icon sx={{ fontSize: 16 }} />
           </Box>
-        )}
+        );
+      })}
+    </Box>
+  );
+
+  const statusPills = (
+    <Box sx={{ display: "flex", gap: 0.75, flexWrap: "nowrap" }}>
+      {STATUS_OPTIONS.map(({ label, value }) => {
+        const active = status === value;
+        return (
+          <Box
+            key={value}
+            component="button"
+            aria-label={label}
+            onClick={() => handleStatusChange(value)}
+            sx={{
+              px: 1.25,
+              py: 0.5,
+              fontSize: "0.75rem",
+              fontWeight: active ? 600 : 400,
+              letterSpacing: "0.02em",
+              borderRadius: 1,
+              border: "1px solid",
+              borderColor: active ? "rgba(124,93,255,0.5)" : "rgba(255,255,255,0.08)",
+              bgcolor: active ? "rgba(124,93,255,0.15)" : "transparent",
+              color: active ? "#B39DFF" : "rgba(255,255,255,0.45)",
+              cursor: "pointer",
+              flexShrink: 0,
+              transition: "all 0.15s ease",
+              "&:hover": {
+                borderColor: "rgba(124,93,255,0.35)",
+                color: "rgba(255,255,255,0.75)",
+              },
+            }}
+          >
+            <Typography
+              component="span"
+              sx={{ fontSize: "inherit", fontWeight: "inherit", color: "inherit", lineHeight: 1 }}
+            >
+              {label}
+            </Typography>
+          </Box>
+        );
+      })}
+    </Box>
+  );
+
+  return (
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+      {/* Row 1: search + add new (always inline) */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, minWidth: 0 }}>
+        {searchInput}
+        {addNewButton}
+        {viewToggle}
       </Box>
 
-      {/* Status filter pills */}
-      <Box sx={{ display: "flex", gap: 0.75 }}>
-        {STATUS_OPTIONS.map(({ label, value }) => {
-          const active = status === value;
-          return (
-            <Box
-              key={value}
-              component="button"
-              aria-label={label}
-              onClick={() => handleStatusChange(value)}
-              sx={{
-                px: 1.25,
-                py: 0.5,
-                fontSize: "0.75rem",
-                fontWeight: active ? 600 : 400,
-                letterSpacing: "0.02em",
-                borderRadius: 1,
-                border: "1px solid",
-                borderColor: active
-                  ? "rgba(124,93,255,0.5)"
-                  : "rgba(255,255,255,0.08)",
-                bgcolor: active
-                  ? "rgba(124,93,255,0.15)"
-                  : "transparent",
-                color: active ? "#B39DFF" : "rgba(255,255,255,0.45)",
-                cursor: "pointer",
-                transition: "all 0.15s ease",
-                "&:hover": {
-                  borderColor: "rgba(124,93,255,0.35)",
-                  color: "rgba(255,255,255,0.75)",
-                },
-              }}
-            >
-              <Typography
-                component="span"
-                sx={{ fontSize: "inherit", fontWeight: "inherit", color: "inherit", lineHeight: 1 }}
-              >
-                {label}
-              </Typography>
-            </Box>
-          );
-        })}
+      {/* Row 2: status pills (+ view toggle on mobile hidden anyway) */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        {statusPills}
       </Box>
-
-      {/* Right-side controls */}
-      {(onAddNew || onViewChange) && (
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, ml: "auto" }}>
-          {/* Add new CTA */}
-          {onAddNew && (
-            <Box
-              component="button"
-              aria-label="Add new project enquiry"
-              onClick={onAddNew}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 0.75,
-                px: 1.5,
-                height: 34,
-                fontSize: "0.75rem",
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-                borderRadius: 1.25,
-                border: "1px solid rgba(124,93,255,0.5)",
-                bgcolor: "rgba(124,93,255,0.22)",
-                color: "#C4B5FD",
-                cursor: "pointer",
-                transition: "all 0.16s ease",
-                "&:hover": {
-                  bgcolor: "rgba(124,93,255,0.32)",
-                  borderColor: "rgba(124,93,255,0.7)",
-                  color: "#DDD6FE",
-                },
-                "&:active": { transform: "scale(0.97)" },
-              }}
-            >
-              <NoteAddOutlinedIcon sx={{ fontSize: 14 }} />
-              <Typography
-                component="span"
-                sx={{ fontSize: "inherit", fontWeight: "inherit", color: "inherit", lineHeight: 1 }}
-              >
-                + Add new
-              </Typography>
-            </Box>
-          )}
-
-          {/* View toggle — desktop only */}
-          {onViewChange && (
-        <Box
-          sx={{
-            display: { xs: "none", sm: "flex" },
-            gap: 0.25,
-            p: 0.375,
-            borderRadius: 1.25,
-            border: "1px solid rgba(255,255,255,0.08)",
-            bgcolor: "rgba(255,255,255,0.03)",
-          }}
-        >
-          {(
-            [
-              { mode: "grid" as ViewMode, Icon: ViewModuleOutlinedIcon, label: "Grid view" },
-              { mode: "list" as ViewMode, Icon: ViewListOutlinedIcon, label: "List view" },
-            ] as const
-          ).map(({ mode, Icon, label }) => {
-            const active = viewMode === mode;
-            return (
-              <Box
-                key={mode}
-                component="button"
-                aria-label={label}
-                onClick={() => onViewChange(mode)}
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 28,
-                  height: 28,
-                  border: "none",
-                  borderRadius: 1,
-                  bgcolor: active ? "rgba(124,93,255,0.2)" : "transparent",
-                  color: active ? "#B39DFF" : "rgba(255,255,255,0.35)",
-                  cursor: "pointer",
-                  p: 0,
-                  transition: "background-color 0.15s ease, color 0.15s ease",
-                  "&:hover": {
-                    bgcolor: active
-                      ? "rgba(124,93,255,0.25)"
-                      : "rgba(255,255,255,0.07)",
-                    color: active ? "#B39DFF" : "rgba(255,255,255,0.65)",
-                  },
-                }}
-              >
-                <Icon sx={{ fontSize: 16 }} />
-              </Box>
-            );
-          })}
-          </Box>
-          )}
-        </Box>
-      )}
     </Box>
   );
 }

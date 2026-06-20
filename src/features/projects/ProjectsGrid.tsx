@@ -10,8 +10,7 @@ import { filterProjects, type StatusFilter, type ViewMode } from "./ProjectSearc
 import { ProjectSearch } from "./ProjectSearch";
 import { ProjectTile } from "./ProjectTile";
 import { ProjectContextMenu } from "./ProjectContextMenu";
-import { ProjectModal } from "./ProjectModal";
-import { ContactModal } from "./ContactModal";
+import { useModal } from "./ModalProvider";
 
 const MotionBox = motion(Box);
 
@@ -21,17 +20,26 @@ interface ContextMenuState {
   y: number;
 }
 
+const STATUS_PALETTE: Record<ProjectStatus, ProjectAccent> = {
+  wip: "primary",
+  live: "success",
+  concept: "info",
+};
+
 export function ProjectsGrid() {
   const theme = useTheme();
+  const { openProjectModal, openContactModal } = useModal();
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
   const [colorOverrides, setColorOverrides] = useState<Record<string, string>>({});
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [contactOpen, setContactOpen] = useState(false);
 
   const filteredProjects = filterProjects(PROJECTS, query, status);
+
+  function getStatusColor(projectStatus: ProjectStatus): string {
+    return (theme.palette[STATUS_PALETTE[projectStatus]] as { main: string }).main;
+  }
 
   const handleFilterChange = useCallback(
     (q: string, s: StatusFilter) => {
@@ -49,22 +57,16 @@ export function ProjectsGrid() {
   );
 
   const handleCloseMenu = useCallback(() => setContextMenu(null), []);
-  const handleOpenModal = useCallback((project: Project) => setSelectedProject(project), []);
-  const handleCloseModal = useCallback(() => setSelectedProject(null), []);
+
+  const handleOpenModal = useCallback((project: Project) => {
+    const accentColor = colorOverrides[project.id] ?? getStatusColor(project.status);
+    openProjectModal(project, accentColor);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [openProjectModal, colorOverrides, theme]);
 
   const handleColorChange = useCallback((projectId: string, color: string) => {
     setColorOverrides((prev) => ({ ...prev, [projectId]: color }));
   }, []);
-
-  const STATUS_PALETTE: Record<ProjectStatus, ProjectAccent> = {
-    wip: "primary",   // Royal Purple — active, building
-    live: "success",  // Cyber Teal — shipped, running
-    concept: "info",  // Soft Lilac — ideation
-  };
-
-  function getStatusColor(status: ProjectStatus): string {
-    return (theme.palette[STATUS_PALETTE[status]] as { main: string }).main;
-  }
 
   return (
     <Box>
@@ -74,7 +76,7 @@ export function ProjectsGrid() {
           onFilterChange={handleFilterChange}
           viewMode={viewMode}
           onViewChange={setViewMode}
-          onAddNew={() => setContactOpen(true)}
+          onAddNew={openContactModal}
         />
       </Box>
 
@@ -158,28 +160,6 @@ export function ProjectsGrid() {
             onClose={handleCloseMenu}
             onColorChange={handleColorChange}
           />
-        )}
-      </AnimatePresence>
-
-      {/* Project detail modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <ProjectModal
-            key={selectedProject.id}
-            project={selectedProject}
-            accentColor={
-              colorOverrides[selectedProject.id] ??
-              getStatusColor(selectedProject.status)
-            }
-            onClose={handleCloseModal}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Contact / enquiry modal */}
-      <AnimatePresence>
-        {contactOpen && (
-          <ContactModal key="contact-modal" onClose={() => setContactOpen(false)} />
         )}
       </AnimatePresence>
     </Box>

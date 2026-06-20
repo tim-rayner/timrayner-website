@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -81,19 +80,6 @@ export function ProjectModal({ project, accentColor, onClose }: ProjectModalProp
     !!project.npmUrl ||
     !!project.extensionHref ||
     !!project.href;
-
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    document.addEventListener("keydown", handleKey);
-    return () => {
-      document.body.style.overflow = prev;
-      document.removeEventListener("keydown", handleKey);
-    };
-  }, [onClose]);
 
   return (
     <Box

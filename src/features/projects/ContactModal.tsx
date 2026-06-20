@@ -7,7 +7,6 @@ import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
 import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
 import { Box, ButtonBase, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
 
 function ContactTile({
   label,
@@ -112,22 +111,6 @@ export interface ContactModalProps {
 }
 
 export function ContactModal({ onClose }: ContactModalProps) {
-  useEffect(() => {
-    const prevBody = document.body.style.overflow;
-    const prevHtml = document.documentElement.style.overflow;
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-    function handleKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    document.addEventListener("keydown", handleKey);
-    return () => {
-      document.body.style.overflow = prevBody;
-      document.documentElement.style.overflow = prevHtml;
-      document.removeEventListener("keydown", handleKey);
-    };
-  }, [onClose]);
-
   return (
     <Box
       sx={{

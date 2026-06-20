@@ -365,7 +365,7 @@ export default function CareerSnapshot() {
       aria-label="Career Snapshot"
       id="career"
       sx={{
-        py: { xs: 8, md: 11 },
+        py: { xs: 5, md: 11 },
         scrollMarginTop: { xs: "56px", md: "64px" },
       }}
     >

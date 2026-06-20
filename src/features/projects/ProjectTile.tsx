@@ -197,17 +197,18 @@ export function ProjectTile({
         </Typography>
       </Box>
 
-      {companyTooltip && viewMode === "list" && (
-        <Tooltip title={companyTooltip} placement="top" arrow>
-          <StarIcon
-            aria-label={companyTooltip}
-            sx={{ fontSize: 14, color, opacity: 0.85, flexShrink: 0, display: "block" }}
-          />
-        </Tooltip>
-      )}
-
-      {/* Status badge — pushed right on mobile */}
-      <Box sx={{ ml: { xs: "auto", sm: 0 } }}>{statusBadge}</Box>
+      {/* Right-side: star + status grouped so they never overlap */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexShrink: 0, ml: viewMode === "list" ? "auto" : { xs: "auto", sm: 0 } }}>
+        {companyTooltip && viewMode === "list" && (
+          <Tooltip title={companyTooltip} placement="top" arrow>
+            <StarIcon
+              aria-label={companyTooltip}
+              sx={{ fontSize: 14, color, opacity: 0.85, display: "block" }}
+            />
+          </Tooltip>
+        )}
+        {statusBadge}
+      </Box>
     </MotionBox>
   );
 }

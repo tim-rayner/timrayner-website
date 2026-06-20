@@ -60,7 +60,7 @@ export default function HeroSection() {
           width: "100%",
           px: { xs: 3, sm: 5, md: 8 },
           pt: { xs: 3, md: "calc(64px + 12px)" },
-          pb: { xs: 6, md: 10 },
+          pb: { xs: 3, md: 10 },
         }}
       >
         {/* Name block */}

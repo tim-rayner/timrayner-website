@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
+import { ModalProvider } from "./ModalProvider";
 import { ProjectsGrid } from "./ProjectsGrid";
 import { RightClickHint } from "./RightClickHint";
 
@@ -11,7 +12,8 @@ export function ProjectsSection() {
       id="projects"
       aria-label="Projects"
       sx={{
-        py: { xs: 8, md: 11 },
+        pt: { xs: 3, md: 11 },
+        pb: { xs: 5, md: 11 },
         scrollMarginTop: { xs: "56px", md: "64px" },
       }}
     >
@@ -87,10 +89,12 @@ export function ProjectsSection() {
         </Typography>
 
         {/* Drive-style projects grid — relative wrapper anchors the doodle hint */}
-        <Box sx={{ position: "relative" }}>
-          <RightClickHint />
-          <ProjectsGrid />
-        </Box>
+        <ModalProvider>
+          <Box sx={{ position: "relative" }}>
+            <RightClickHint />
+            <ProjectsGrid />
+          </Box>
+        </ModalProvider>
 
         <Typography
           sx={{
