@@ -1,3 +1,5 @@
+import BackgroundGlow from "@/features/background/BackgroundGlow";
+import { Footer } from "@/features/footer";
 import { Navbar } from "@/features/navbar";
 import TrpcProvider from "@/lib/TrpcProvider";
 import MuiProvider from "@/theme/MuiProvider";
@@ -44,8 +46,10 @@ export default function RootLayout({
       <body>
         <TrpcProvider>
           <MuiProvider>
+            <BackgroundGlow />
             <Navbar />
-            <main>{children}</main>
+            <main style={{ position: "relative", zIndex: 1 }}>{children}</main>
+            <Footer />
           </MuiProvider>
         </TrpcProvider>
       </body>

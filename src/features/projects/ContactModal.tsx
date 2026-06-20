@@ -1,104 +1,109 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Box, Typography, InputBase } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import SendIcon from "@mui/icons-material/Send";
-import CheckIcon from "@mui/icons-material/Check";
-import { motion, AnimatePresence } from "framer-motion";
-import { z } from "zod";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
+import PhoneOutlinedIcon from "@mui/icons-material/PhoneOutlined";
+import { Box, ButtonBase, Typography } from "@mui/material";
+import { motion } from "framer-motion";
+import { useEffect } from "react";
 
-const contactSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  number: z.string().min(1, "Phone number is required"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactFields = z.infer<typeof contactSchema>;
-type FieldErrors = Partial<Record<keyof ContactFields, string>>;
-
-interface FieldProps {
+function ContactTile({
+  label,
+  sublabel,
+  href,
+  Icon,
+  external,
+}: {
   label: string;
-  value: string;
-  onChange: (v: string) => void;
-  error?: string;
-  placeholder?: string;
-  multiline?: boolean;
-  inputMode?: React.InputHTMLAttributes<HTMLInputElement>["inputMode"];
-  type?: string;
-}
-
-function FormField({ label, value, onChange, error, placeholder, multiline, inputMode, type }: FieldProps) {
+  sublabel: string;
+  href: string;
+  Icon: React.ElementType;
+  external?: boolean;
+}) {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 0.75 }}>
-      <Typography
-        component="label"
+    <motion.div
+      whileHover={{ x: 4 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 300, damping: 22 }}
+    >
+      <ButtonBase
+        component="a"
+        href={href}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        aria-label={label}
         sx={{
-          fontSize: "0.6875rem",
-          fontWeight: 600,
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-          color: "rgba(255,255,255,0.4)",
-        }}
-      >
-        {label}
-      </Typography>
-
-      <Box
-        sx={{
-          px: 1.75,
-          py: multiline ? 1.5 : 0,
-          borderRadius: 1.5,
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          gap: 2.5,
+          px: 3,
+          py: 2.25,
+          borderRadius: 2,
           border: "1px solid",
-          borderColor: error ? "rgba(239,68,68,0.5)" : "rgba(255,255,255,0.1)",
+          borderColor: "rgba(255,255,255,0.08)",
           bgcolor: "rgba(255,255,255,0.03)",
-          transition: "border-color 0.18s ease, background-color 0.18s ease",
-          "&:focus-within": {
-            borderColor: error ? "rgba(239,68,68,0.5)" : "rgba(124,93,255,0.45)",
-            bgcolor: "rgba(255,255,255,0.055)",
+          textAlign: "left",
+          transition: "border-color 0.25s ease, background-color 0.25s ease",
+          "&:hover": {
+            borderColor: "rgba(255,255,255,0.18)",
+            bgcolor: "rgba(255,255,255,0.05)",
           },
         }}
       >
-        <InputBase
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
-          multiline={multiline}
-          rows={multiline ? 4 : undefined}
-          type={type}
-          inputProps={{ inputMode, "aria-label": label }}
+        <Box
           sx={{
-            width: "100%",
-            fontSize: "0.875rem",
-            color: "text.primary",
-            lineHeight: 1.7,
-            py: multiline ? 0 : 1.25,
-            "& input, & textarea": { p: 0 },
-            "& textarea": { resize: "none" },
-            "& input::placeholder, & textarea::placeholder": {
-              color: "rgba(255,255,255,0.22)",
-              opacity: 1,
-            },
+            width: 40,
+            height: 40,
+            flexShrink: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 1.5,
+            bgcolor: external
+              ? "rgba(77, 142, 255, 0.1)"
+              : "rgba(124, 93, 255, 0.1)",
           }}
-        />
-      </Box>
+        >
+          <Icon
+            sx={{
+              fontSize: 18,
+              color: external ? "secondary.main" : "primary.main",
+            }}
+          />
+        </Box>
 
-      <AnimatePresence mode="wait">
-        {error && (
-          <motion.div
-            key={error}
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.16 }}
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Typography
+            sx={{
+              fontSize: "0.8125rem",
+              fontWeight: 600,
+              color: "text.secondary",
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              lineHeight: 1,
+              mb: 0.5,
+            }}
           >
-            <Typography sx={{ fontSize: "0.75rem", color: "rgba(239,68,68,0.85)", lineHeight: 1 }}>
-              {error}
-            </Typography>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </Box>
+            {label}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "0.9375rem",
+              fontWeight: 500,
+              color: "text.primary",
+              letterSpacing: "-0.01em",
+              lineHeight: 1,
+            }}
+          >
+            {sublabel}
+          </Typography>
+        </Box>
+
+        <OpenInNewOutlinedIcon sx={{ fontSize: 16, color: "text.disabled" }} />
+      </ButtonBase>
+    </motion.div>
   );
 }
 
@@ -107,16 +112,6 @@ export interface ContactModalProps {
 }
 
 export function ContactModal({ onClose }: ContactModalProps) {
-  const [fields, setFields] = useState<ContactFields>({ name: "", number: "", message: "" });
-  const [errors, setErrors] = useState<FieldErrors>({});
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  const setField = useCallback(<K extends keyof ContactFields>(key: K, value: string) => {
-    setFields((prev) => ({ ...prev, [key]: value }));
-    setErrors((prev) => ({ ...prev, [key]: undefined }));
-  }, []);
-
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -129,26 +124,6 @@ export function ContactModal({ onClose }: ContactModalProps) {
       document.removeEventListener("keydown", handleKey);
     };
   }, [onClose]);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const result = contactSchema.safeParse(fields);
-    if (!result.success) {
-      const fieldErrors: FieldErrors = {};
-      for (const issue of result.error.issues) {
-        const key = issue.path[0] as keyof ContactFields;
-        if (!fieldErrors[key]) fieldErrors[key] = issue.message;
-      }
-      setErrors(fieldErrors);
-      return;
-    }
-    setSubmitting(true);
-    // Simulate async dispatch — wire to tRPC when ready
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-    }, 900);
-  }
 
   return (
     <Box
@@ -192,7 +167,7 @@ export function ContactModal({ onClose }: ContactModalProps) {
         }}
         role="dialog"
         aria-modal="true"
-        aria-label="Contact form"
+        aria-label="Contact"
       >
         <Box
           sx={{
@@ -248,7 +223,9 @@ export function ContactModal({ onClose }: ContactModalProps) {
                 "&:active": { transform: "scale(0.93)" },
               }}
             >
-              <CloseIcon sx={{ fontSize: 15, color: "rgba(255,255,255,0.55)" }} />
+              <CloseIcon
+                sx={{ fontSize: 15, color: "rgba(255,255,255,0.55)" }}
+              />
             </Box>
 
             <Box sx={{ position: "relative", zIndex: 1 }}>
@@ -264,7 +241,7 @@ export function ContactModal({ onClose }: ContactModalProps) {
                   pr: 5,
                 }}
               >
-                Contact Me
+                Lets build something new together
               </Typography>
 
               <Typography
@@ -275,21 +252,7 @@ export function ContactModal({ onClose }: ContactModalProps) {
                   maxWidth: "42ch",
                 }}
               >
-                So you want to work together on a new project... fill out the form below with your
-                ideas, or alternatively give me a call on my{" "}
-                <Box
-                  component="a"
-                  href="tel:07512282997"
-                  sx={{
-                    color: "rgba(124,93,255,0.9)",
-                    textDecoration: "underline",
-                    textDecorationColor: "rgba(124,93,255,0.4)",
-                    transition: "color 0.15s ease",
-                    "&:hover": { color: "#B39DFF" },
-                  }}
-                >
-                  mobile
-                </Box>
+                So you want to work together on a new project? Let&apos;s chat!
               </Typography>
             </Box>
           </Box>
@@ -299,139 +262,27 @@ export function ContactModal({ onClose }: ContactModalProps) {
 
           {/* Body */}
           <Box sx={{ p: { xs: "24px", sm: "28px 32px 32px" } }}>
-            <AnimatePresence mode="wait">
-              {submitted ? (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 24 }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: 2,
-                      py: 4,
-                      textAlign: "center",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: 52,
-                        height: 52,
-                        borderRadius: "50%",
-                        bgcolor: "rgba(16,185,129,0.12)",
-                        border: "1px solid rgba(16,185,129,0.3)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <CheckIcon sx={{ fontSize: 24, color: "rgb(16,185,129)" }} />
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: "1rem", fontWeight: 600, color: "text.primary", mb: 0.5 }}
-                      >
-                        Message sent
-                      </Typography>
-                      <Typography sx={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.4)" }}>
-                        I&apos;ll be in touch soon.
-                      </Typography>
-                    </Box>
-                  </Box>
-                </motion.div>
-              ) : (
-                <motion.form
-                  key="form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  onSubmit={handleSubmit}
-                  noValidate
-                >
-                  <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
-                    <FormField
-                      label="Name"
-                      value={fields.name}
-                      onChange={(v) => setField("name", v)}
-                      error={errors.name}
-                      placeholder="Your full name"
-                    />
-                    <FormField
-                      label="Number"
-                      value={fields.number}
-                      onChange={(v) => setField("number", v)}
-                      error={errors.number}
-                      placeholder="Your phone number"
-                      inputMode="tel"
-                      type="tel"
-                    />
-                    <FormField
-                      label="Message"
-                      value={fields.message}
-                      onChange={(v) => setField("message", v)}
-                      error={errors.message}
-                      placeholder="Tell me about your project idea..."
-                      multiline
-                    />
-
-                    {/* Submit */}
-                    <Box
-                      component="button"
-                      type="submit"
-                      disabled={submitting}
-                      sx={{
-                        mt: 0.5,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 1,
-                        width: "100%",
-                        py: 1.375,
-                        borderRadius: 1.75,
-                        border: "1px solid rgba(124,93,255,0.4)",
-                        bgcolor: "rgba(124,93,255,0.16)",
-                        color: "#B39DFF",
-                        fontSize: "0.875rem",
-                        fontWeight: 600,
-                        letterSpacing: "0.02em",
-                        cursor: submitting ? "not-allowed" : "pointer",
-                        opacity: submitting ? 0.6 : 1,
-                        transition: "all 0.18s ease",
-                        "&:hover:not(:disabled)": {
-                          bgcolor: "rgba(124,93,255,0.24)",
-                          borderColor: "rgba(124,93,255,0.6)",
-                        },
-                        "&:active:not(:disabled)": {
-                          transform: "scale(0.98)",
-                        },
-                      }}
-                    >
-                      {submitting ? (
-                        <Box
-                          sx={{
-                            width: 16,
-                            height: 16,
-                            borderRadius: "50%",
-                            border: "2px solid rgba(179,157,255,0.3)",
-                            borderTopColor: "#B39DFF",
-                            animation: "spin 0.7s linear infinite",
-                            "@keyframes spin": { to: { transform: "rotate(360deg)" } },
-                          }}
-                        />
-                      ) : (
-                        <SendIcon sx={{ fontSize: 15 }} />
-                      )}
-                      {submitting ? "Sending…" : "Send message"}
-                    </Box>
-                  </Box>
-                </motion.form>
-              )}
-            </AnimatePresence>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+              <ContactTile
+                label="Email"
+                sublabel="Drop me a line"
+                href="mailto:tim.rayner2020@gmail.com"
+                Icon={EmailOutlinedIcon}
+              />
+              <ContactTile
+                label="Phone"
+                sublabel="Give me a call"
+                href="tel:+447512282997"
+                Icon={PhoneOutlinedIcon}
+              />
+              <ContactTile
+                label="LinkedIn"
+                sublabel="View my LinkedIn profile"
+                href="https://www.linkedin.com/in/tim-rayner/"
+                Icon={LinkedInIcon}
+                external
+              />
+            </Box>
           </Box>
         </Box>
       </motion.div>

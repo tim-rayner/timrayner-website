@@ -1,10 +1,8 @@
 "use client";
 
 import { Box, Typography } from "@mui/material";
-import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-
-const MotionBox = motion(Box);
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 // ─── Markdown primitives ────────────────────────────────────────────────────
 
@@ -329,7 +327,8 @@ interface Props {
 
 export function ReadmeViewer({ rawContent }: Props) {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const fileBoxRef = useRef<HTMLDivElement>(null);
+  const fileBoxVisible = useScrollReveal(fileBoxRef, { margin: "-80px" });
   const [copied, setCopied] = useState(false);
 
   const lineCount = rawContent.trim().split("\n").length;
@@ -360,13 +359,13 @@ export function ReadmeViewer({ rawContent }: Props) {
     <Box
       ref={ref}
       component="section"
-      id="readme"
+      id="about"
       aria-label="README"
-      sx={{ bgcolor: "background.default", py: { xs: 10, md: 14 } }}
+      sx={{ py: { xs: 8, md: 11 }, scrollMarginTop: { xs: "56px", md: "64px" } }}
     >
       <Box sx={{ maxWidth: 1200, mx: "auto" }}>
         {/* Section header */}
-        <Box sx={{ mb: { xs: 8, md: 12 } }}>
+        <Box sx={{ mb: { xs: 5, md: 7 } }}>
           <Typography
             component="span"
             sx={{
@@ -396,14 +395,16 @@ export function ReadmeViewer({ rawContent }: Props) {
           </Typography>
         </Box>
 
-        <MotionBox
-          initial={{ opacity: 0, y: 36 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ type: "spring", stiffness: 72, damping: 22 }}
+        <Box
+          ref={fileBoxRef}
           sx={{
             border: "1px solid rgba(255, 255, 255, 0.08)",
             borderRadius: 2,
             overflow: "hidden",
+            opacity: fileBoxVisible ? 1 : 0,
+            transform: fileBoxVisible ? "none" : "translateY(32px)",
+            transition:
+              "opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1)",
           }}
         >
           {/* File header */}
@@ -549,7 +550,7 @@ export function ReadmeViewer({ rawContent }: Props) {
           >
             {renderMarkdown(rawContent)}
           </Box>
-        </MotionBox>
+        </Box>
       </Box>
     </Box>
   );

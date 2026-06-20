@@ -126,7 +126,7 @@ const MobileRotatingBanner = memo(function MobileRotatingBanner({
           overflow: "hidden",
         }}
       >
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           <MotionBox
             key={tech.slug}
             initial={{ opacity: 0, x: 24 }}
@@ -196,16 +196,8 @@ function DesktopBanner({ technologies }: { technologies: TechItem[] }) {
         }}
       >
         {technologies.map((tech, i) => (
-          <MotionBox
+          <Box
             key={tech.slug}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 0.65 + i * 0.15,
-              type: "spring",
-              stiffness: 100,
-              damping: 20,
-            }}
             sx={{
               display: "flex",
               alignItems: "center",
@@ -213,6 +205,12 @@ function DesktopBanner({ technologies }: { technologies: TechItem[] }) {
               opacity: 0.62,
               transition: "opacity 0.22s ease",
               "&:hover": { opacity: 1 },
+              animation: "techFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both",
+              animationDelay: `${0.5 + i * 0.07}s`,
+              "@keyframes techFadeUp": {
+                from: { opacity: 0, transform: "translateY(8px)" },
+                to: { opacity: 0.62, transform: "none" },
+              },
             }}
           >
             <TechIcon tech={tech} size={tech.iconSize ?? ICON_SIZE} />
@@ -231,7 +229,7 @@ function DesktopBanner({ technologies }: { technologies: TechItem[] }) {
                 {tech.name}
               </Typography>
             )}
-          </MotionBox>
+          </Box>
         ))}
       </Box>
     </Box>

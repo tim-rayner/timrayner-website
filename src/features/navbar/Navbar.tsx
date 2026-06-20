@@ -7,10 +7,10 @@ import NavBrand from "./NavBrand";
 import MobileMenu from "./MobileMenu";
 
 const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Career", href: "#career" },
-  { label: "Contact", href: "#contact" },
+  { label: "Projects", href: "/#projects" },
+  { label: "About", href: "/#about" },
+  { label: "Career", href: "/#career" },
+  { label: "Contact", href: "/#contact" },
 ] as const;
 
 function HamburgerIcon({ isOpen }: { isOpen: boolean }) {

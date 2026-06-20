@@ -2,35 +2,8 @@
 
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Box, Button, Chip, IconButton, Typography } from "@mui/material";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import TechStackBanner from "./TechStackBanner";
-
-const MotionBox = motion(Box);
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.13, delayChildren: 0.05 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring" as const, stiffness: 90, damping: 20 },
-  },
-};
-
-const imageVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.7, ease: "easeOut" as const, delay: 0.15 },
-  },
-};
 
 export default function HeroSection() {
   return (
@@ -39,17 +12,13 @@ export default function HeroSection() {
       aria-label="Hero"
       sx={{
         minHeight: "100dvh",
-        bgcolor: "background.default",
         display: "grid",
         gridTemplateColumns: { xs: "1fr", md: "55fr 45fr" },
         gridTemplateRows: { xs: "38dvh auto", md: "1fr" },
       }}
     >
       {/* Mobile only: full-width image strip at top */}
-      <MotionBox
-        variants={imageVariants}
-        initial="hidden"
-        animate="visible"
+      <Box
         sx={{
           display: { xs: "block", md: "none" },
           position: "relative",
@@ -68,7 +37,6 @@ export default function HeroSection() {
             objectPosition: "center 32%",
           }}
         />
-        {/* Bottom fade into background */}
         <Box
           sx={{
             position: "absolute",
@@ -78,13 +46,10 @@ export default function HeroSection() {
             pointerEvents: "none",
           }}
         />
-      </MotionBox>
+      </Box>
 
       {/* Content */}
-      <MotionBox
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+      <Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -98,10 +63,7 @@ export default function HeroSection() {
         }}
       >
         {/* Name block */}
-        <MotionBox
-          variants={itemVariants}
-          sx={{ mb: { xs: 0.5, md: 0.5 }, width: "100%" }}
-        >
+        <Box sx={{ mb: { xs: 0.5, md: 0.5 }, width: "100%" }}>
           {/* Eyebrow */}
           <Box
             sx={{
@@ -115,6 +77,12 @@ export default function HeroSection() {
             }}
           >
             <Chip
+              component="a"
+              href="#contact"
+              onClick={(e: React.MouseEvent) => {
+                e.preventDefault();
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+              }}
               icon={
                 <Box
                   component="span"
@@ -142,6 +110,12 @@ export default function HeroSection() {
                 border: "1px solid",
                 borderColor: "rgba(0, 212, 196, 0.35)",
                 borderRadius: 1,
+                cursor: "pointer",
+                textDecoration: "none",
+                "&:hover": {
+                  bgcolor: "rgba(0, 212, 196, 0.18)",
+                  borderColor: "rgba(0, 212, 196, 0.6)",
+                },
                 "& .MuiChip-icon": {
                   ml: 1,
                   mr: -0.25,
@@ -172,10 +146,10 @@ export default function HeroSection() {
           >
             Tim Rayner
           </Typography>
-        </MotionBox>
+        </Box>
 
         {/* Role */}
-        <MotionBox variants={itemVariants} sx={{ mb: { xs: 1.5, md: 1.5 } }}>
+        <Box sx={{ mb: { xs: 1.5, md: 1.5 } }}>
           <Typography
             component="p"
             sx={{
@@ -189,11 +163,10 @@ export default function HeroSection() {
           >
             Full-Stack Software Engineer
           </Typography>
-        </MotionBox>
+        </Box>
 
         {/* Supporting copy — mobile only */}
-        <MotionBox
-          variants={itemVariants}
+        <Box
           sx={{
             mb: { xs: 2, md: 0 },
             width: "100%",
@@ -211,11 +184,10 @@ export default function HeroSection() {
             Self-taught engineer with 7+ years of experience designing and
             delivering production software at scale.
           </Typography>
-        </MotionBox>
+        </Box>
 
         {/* Tagline — hidden on mobile */}
-        <MotionBox
-          variants={itemVariants}
+        <Box
           sx={{ mb: { xs: 2, md: 1 }, display: { xs: "none", sm: "block" } }}
         >
           <Typography
@@ -239,13 +211,10 @@ export default function HeroSection() {
               Production Tested
             </Box>
           </Typography>
-        </MotionBox>
+        </Box>
 
         {/* CTA block */}
-        <MotionBox
-          variants={itemVariants}
-          sx={{ width: "100%", mt: { xs: 0, sm: 0 } }}
-        >
+        <Box sx={{ width: "100%", mt: { xs: 0, sm: 0 } }}>
           {/* Mobile: View Work full-width; secondary row below */}
           <Box
             sx={{
@@ -396,19 +365,14 @@ export default function HeroSection() {
               <LinkedInIcon fontSize="small" />
             </IconButton>
           </Box>
-        </MotionBox>
+        </Box>
 
         {/* Tech stack banner — desktop only */}
-        <MotionBox variants={itemVariants}>
-          <TechStackBanner />
-        </MotionBox>
-      </MotionBox>
+        <TechStackBanner />
+      </Box>
 
       {/* Desktop only: full-height image on right */}
-      <MotionBox
-        variants={imageVariants}
-        initial="hidden"
-        animate="visible"
+      <Box
         sx={{
           display: { xs: "none", md: "block" },
           position: "relative",
@@ -427,7 +391,6 @@ export default function HeroSection() {
             objectPosition: "center calc(50% + 150px)",
           }}
         />
-        {/* Horizontal left-edge fade into content */}
         <Box
           sx={{
             position: "absolute",
@@ -439,7 +402,7 @@ export default function HeroSection() {
             zIndex: 1,
           }}
         />
-      </MotionBox>
+      </Box>
     </Box>
   );
 }

@@ -77,6 +77,28 @@ Each route lives in `src/app/{name}/`:
 - Commit secrets or API keys
 - Edit generated rule files as canonical source — update `llm/rules/*.md` and re-run sync
 
+## framer-motion animation rules
+
+framer-motion inlines the `initial` state as CSS on the SSR-rendered HTML. Any element with `initial={{ opacity: 0 }}` or `initial="hidden"` will be **invisible in the SSR output** — search crawlers and browser back/forward navigation both see hidden content.
+
+**Never:**
+- Use `initial="hidden"` / `animate="visible"` on page-level text, headings, or content sections
+- Use `initial={{ opacity: 0 }}` / `whileInView` on anything that contains readable content
+- Use `viewport={{ once: true }}` on scroll-triggered content (back/forward navigation won't retrigger it)
+
+**Allowed:**
+- `whileHover`, `whileTap` — these never affect initial visibility
+- `AnimatePresence` for mount/unmount of modals, menus, or state transitions — safe as long as the element does not exist in the initial DOM
+- `AnimatePresence initial={false}` for cycling/rotating UI (e.g. carousels, typewriter items) — prevents the first item from starting invisible on SSR
+- CSS `@keyframes` animations via MUI `sx` — these do not affect the rendered value in SSR HTML
+- **`useScrollReveal` hook** (`src/hooks/useScrollReveal.ts`) — the approved pattern for scroll-triggered entrance animations. Returns `true` on SSR (content renders visible) and `true` immediately when the element is already in the viewport (back/forward safe). Use with CSS `opacity`/`transform` transitions on the element.
+
+**On every new page or section component:**
+1. Render all text and content as plain visible elements by default
+2. Only add framer-motion after confirming it falls into the allowed patterns above
+3. For scroll-triggered entrance animations, use `useScrollReveal` + CSS transitions — never `whileInView` + `initial="hidden"`
+4. Run a quick check: does anything in this component have `initial` set to a hidden/invisible value? If yes, remove it.
+
 ## Hallucination guardrails
 
 Do not assume any of the following without verifying in code:

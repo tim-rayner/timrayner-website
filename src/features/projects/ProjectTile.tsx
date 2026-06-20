@@ -3,6 +3,8 @@
 import { Box, Tooltip, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { motion } from "framer-motion";
+import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import type { Project } from "./data/projects";
 import type { ViewMode } from "./ProjectSearch";
 import { TileIcon } from "./ProjectIcons";
@@ -34,6 +36,10 @@ export function ProjectTile({
   onContextMenu,
   onOpen,
 }: ProjectTileProps) {
+  const tileRef = useRef<HTMLDivElement>(null);
+  const visible = useScrollReveal(tileRef as React.RefObject<HTMLElement>, { margin: "-40px" });
+  const staggerDelay = Math.min(index * 45, 300);
+
   const color = colorOverride ?? accentColor;
   const { label: statusLabel, dot } = STATUS_CONFIG[project.status];
   const companyTooltip = project.company
@@ -98,15 +104,7 @@ export function ProjectTile({
 
   return (
     <MotionBox
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{
-        type: "spring",
-        stiffness: 120,
-        damping: 22,
-        delay: index * 0.05,
-      }}
+      ref={tileRef}
       whileHover={{ y: -2, transition: { type: "spring", stiffness: 300, damping: 28 } }}
       onClick={handleClick}
       onContextMenu={handleContextMenu}
@@ -122,7 +120,9 @@ export function ProjectTile({
         bgcolor: "rgba(255,255,255,0.025)",
         cursor: "pointer",
         userSelect: "none",
-        transition: "border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "none" : "translateY(14px)",
+        transition: `opacity 0.5s ${staggerDelay}ms cubic-bezier(0.22,1,0.36,1), transform 0.5s ${staggerDelay}ms cubic-bezier(0.22,1,0.36,1), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease`,
         "&:hover": {
           borderColor: `${color}40`,
           bgcolor: `${color}08`,

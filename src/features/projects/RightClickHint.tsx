@@ -1,9 +1,13 @@
 "use client";
 
 import { Box } from "@mui/material";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export function RightClickHint() {
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useScrollReveal(ref, { margin: "-60px" });
+
   return (
     <Box
       sx={{
@@ -16,13 +20,15 @@ export function RightClickHint() {
         userSelect: "none",
       }}
     >
-      <motion.div
-        initial={{ opacity: 0, x: 18 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ type: "spring", stiffness: 50, damping: 16, delay: 1.6 }}
+      <Box
+        ref={ref}
+        sx={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? "none" : "translateX(18px)",
+          transition:
+            "opacity 0.7s 1.4s ease, transform 0.7s 1.4s cubic-bezier(0.22,1,0.36,1)",
+        }}
       >
-        {/* Handwritten text */}
         <p
           style={{
             fontFamily: "var(--font-caveat)",
@@ -42,7 +48,6 @@ export function RightClickHint() {
           <br />a project
         </p>
 
-        {/* Hand-drawn arrow — curves from text toward grid (down-left) */}
         <svg
           width="88"
           height="62"
@@ -58,7 +63,6 @@ export function RightClickHint() {
             strokeLinecap="round"
             fill="none"
           />
-          {/* Arrowhead at (8,58) pointing down-left */}
           <path
             d="M8,58 L18,46"
             stroke="rgba(255,255,255,0.32)"
@@ -72,7 +76,7 @@ export function RightClickHint() {
             strokeLinecap="round"
           />
         </svg>
-      </motion.div>
+      </Box>
     </Box>
   );
 }

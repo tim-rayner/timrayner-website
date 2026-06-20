@@ -9,53 +9,21 @@ import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
 
-const sectionVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
-};
-
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring" as const, stiffness: 80, damping: 18 },
-  },
-};
-
-const tileVariants = {
-  hidden: { opacity: 0, x: 24 },
-  visible: (i: number) => ({
-    opacity: 1,
-    x: 0,
-    transition: {
-      type: "spring" as const,
-      stiffness: 80,
-      damping: 18,
-      delay: i * 0.1,
-    },
-  }),
-};
-
 function ContactTile({
   label,
   sublabel,
   href,
   Icon,
-  index,
   external,
 }: {
   label: string;
   sublabel: string;
   href: string;
   Icon: React.ElementType;
-  index: number;
   external?: boolean;
 }) {
   return (
     <MotionBox
-      custom={index}
-      variants={tileVariants}
       whileHover={{ x: 4 }}
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 300, damping: 22 }}
@@ -141,22 +109,18 @@ function ContactTile({
   );
 }
 
-
 export default function ContactSection() {
   return (
     <Box
       component="section"
+      id="contact"
       aria-label="Contact"
       sx={{
-        pt: { xs: 10, md: 14 },
-        pb: { xs: 14, md: 20 },
+        pt: { xs: 8, md: 11 },
+        pb: { xs: 8, md: 11 },
       }}
     >
-      <MotionBox
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
+      <Box
         sx={{
           display: "grid",
           gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
@@ -166,54 +130,48 @@ export default function ContactSection() {
       >
         {/* Left: heading block */}
         <Box>
-          <MotionBox variants={fadeUpVariants}>
-            <Typography
-              component="p"
-              sx={{
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "primary.main",
-                mb: 2,
-              }}
-            >
-              Contact
-            </Typography>
-          </MotionBox>
+          <Typography
+            component="p"
+            sx={{
+              fontSize: "0.75rem",
+              fontWeight: 700,
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
+              color: "primary.main",
+              mb: 2,
+            }}
+          >
+            Contact
+          </Typography>
 
-          <MotionBox variants={fadeUpVariants}>
-            <Typography
-              component="h2"
-              sx={{
-                fontSize: { xs: "2.6rem", md: "3.2rem", lg: "3.8rem" },
-                fontWeight: 800,
-                lineHeight: 1.02,
-                letterSpacing: "-0.04em",
-                color: "text.primary",
-                mb: 3,
-              }}
-            >
-              Let&apos;s work
-              <br />
-              <Box component="span" sx={{ color: "primary.main" }}>
-                together.
-              </Box>
-            </Typography>
-          </MotionBox>
+          <Typography
+            component="h2"
+            sx={{
+              fontSize: { xs: "2.6rem", md: "3.2rem", lg: "3.8rem" },
+              fontWeight: 800,
+              lineHeight: 1.02,
+              letterSpacing: "-0.04em",
+              color: "text.primary",
+              mb: 3,
+            }}
+          >
+            Let&apos;s work
+            <br />
+            <Box component="span" sx={{ color: "primary.main" }}>
+              together.
+            </Box>
+          </Typography>
 
-          <MotionBox variants={fadeUpVariants}>
-            <Typography
-              sx={{
-                color: "text.secondary",
-                fontSize: "1rem",
-                lineHeight: 1.75,
-                maxWidth: "38ch",
-              }}
-            >
-              Open to new opportunities. Reach out directly.
-            </Typography>
-          </MotionBox>
+          <Typography
+            sx={{
+              color: "text.secondary",
+              fontSize: "1rem",
+              lineHeight: 1.75,
+              maxWidth: "38ch",
+            }}
+          >
+            Open to new opportunities. Reach out directly.
+          </Typography>
         </Box>
 
         {/* Right: contact tiles */}
@@ -223,25 +181,22 @@ export default function ContactSection() {
             sublabel="Drop me a line"
             href="mailto:tim.rayner2020@gmail.com"
             Icon={EmailOutlinedIcon}
-            index={0}
           />
           <ContactTile
             label="Phone"
             sublabel="Give me a call"
             href="tel:+447512282997"
             Icon={PhoneOutlinedIcon}
-            index={1}
           />
           <ContactTile
             label="LinkedIn"
             sublabel="View my LinkedIn profile"
             href="https://www.linkedin.com/in/tim-rayner/"
             Icon={LinkedInIcon}
-            index={2}
             external
           />
         </Box>
-      </MotionBox>
+      </Box>
     </Box>
   );
 }

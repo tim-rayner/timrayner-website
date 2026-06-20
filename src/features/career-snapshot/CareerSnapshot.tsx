@@ -1,5 +1,9 @@
+"use client";
+
 import { Box, Chip, Typography } from "@mui/material";
 import Image from "next/image";
+import { useRef } from "react";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const ACCENT = {
   secondary: {
@@ -35,13 +39,22 @@ const HISTORY = [
     id: "artlist",
     company: "Artlist.io",
     role: "Full Stack Engineer",
-    period: "Feb 2025 — Present",
+    period: "Jan 2025 — Present",
     isCurrent: true,
     logo: "/AL.png",
     logoBg: "#0B0F1A",
     summary:
       "Shipping features across the full stack for a global creative asset platform used by millions of creators. Recently stepped into leading a cross-functional AI initiative team — integrating emerging AI tools to shape the next generation of content creation.",
-    tags: ["Next.js", "Nest.js", "tRPC", "TypeScript", "PostgreSQL", "Redis", "AWS", "Docker"],
+    tags: [
+      "Next.js",
+      "Nest.js",
+      "tRPC",
+      "TypeScript",
+      "PostgreSQL",
+      "Redis",
+      "AWS",
+      "Docker",
+    ],
     accentKey: "primary" as AccentKey,
   },
   {
@@ -53,7 +66,15 @@ const HISTORY = [
     logo: "https://media.licdn.com/dms/image/v2/C4E0BAQFeeZ02QCGz8w/company-logo_200_200/company-logo_200_200/0/1663758987311/mobilityways_logo?e=2147483647&v=beta&t=YXPRfzJm1fNrrWiOh5FTAgGs8ZWaF4NVPAMp_k3373Q",
     summary:
       "Sharpened frontend craft across Vue 3, React Native, and legacy templating systems. Built a reputation for precision-grade UI delivery and became the team's first call for anything frontend.",
-    tags: ["Vue 3", "React Native", "TypeScript", "Pinia", "Node.js", "SASS", "Azure"],
+    tags: [
+      "Vue 3",
+      "React Native",
+      "TypeScript",
+      "Pinia",
+      "Node.js",
+      "SASS",
+      "Azure",
+    ],
     accentKey: "success" as AccentKey,
   },
   {
@@ -77,23 +98,39 @@ const HISTORY = [
     logo: "https://media.licdn.com/dms/image/v2/C4E0BAQE0_qXjPmCHSw/company-logo_200_200/company-logo_200_200/0/1630646319463/crisp_malt_logo?e=2147483647&v=beta&t=LVfNRhI1yqvnHMPH5vTwLHUtwVVaOyPzD65xCgxrAY0",
     summary:
       "Where it started. Joined as an apprentice, completed with distinction, and was promoted to lead web developer — migrating legacy systems to Microsoft Azure and shipping full-stack solutions across the business.",
-    tags: ["React", "C#", ".NET Core", "Azure", "SQL", "Entity Framework", "Swift"],
+    tags: [
+      "React",
+      "C#",
+      ".NET Core",
+      "Azure",
+      "SQL",
+      "Entity Framework",
+      "Swift",
+    ],
     accentKey: "secondary" as AccentKey,
   },
 ] as const;
 
 interface EntryCardProps {
   entry: (typeof HISTORY)[number];
+  index: number;
 }
 
-function EntryCard({ entry }: EntryCardProps) {
+function EntryCard({ entry, index }: EntryCardProps) {
   const accent = ACCENT[entry.accentKey];
+  const cardRef = useRef<HTMLDivElement>(null);
+  const visible = useScrollReveal(cardRef as React.RefObject<HTMLElement>, { margin: "-60px" });
+  const delay = index * 80;
 
   return (
     <Box
+      ref={cardRef}
       sx={{
         position: "relative",
         bgcolor: "background.paper",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "none" : "translateY(20px)",
+        transition: `opacity 0.6s ${delay}ms cubic-bezier(0.22,1,0.36,1), transform 0.6s ${delay}ms cubic-bezier(0.22,1,0.36,1)`,
         border: "1px solid",
         borderColor: accent.border,
         borderRadius: 2,
@@ -262,7 +299,7 @@ function TimelineItem({ entry, index }: TimelineItemProps) {
       sx={{
         display: "grid",
         gridTemplateColumns: { xs: "52px 1fr", md: "1fr 60px 1fr" },
-        mb: { xs: 6, md: 8 },
+        mb: { xs: 4, md: 6 },
         alignItems: "start",
       }}
     >
@@ -274,7 +311,7 @@ function TimelineItem({ entry, index }: TimelineItemProps) {
           pr: 4.5,
         }}
       >
-        {isLeft && <EntryCard entry={entry} />}
+        {isLeft && <EntryCard entry={entry} index={index} />}
       </Box>
 
       {/* Logo marker */}
@@ -308,11 +345,11 @@ function TimelineItem({ entry, index }: TimelineItemProps) {
       <Box sx={{ pl: { xs: 2.5, md: 4.5 } }}>
         {!isLeft && (
           <Box sx={{ display: { xs: "none", md: "block" } }}>
-            <EntryCard entry={entry} />
+            <EntryCard entry={entry} index={index} />
           </Box>
         )}
         <Box sx={{ display: { xs: "block", md: "none" } }}>
-          <EntryCard entry={entry} />
+          <EntryCard entry={entry} index={index} />
         </Box>
       </Box>
     </Box>
@@ -326,97 +363,97 @@ export default function CareerSnapshot() {
       aria-label="Career Snapshot"
       id="career"
       sx={{
-        bgcolor: "background.default",
-        py: { xs: 10, md: 16 },
+        py: { xs: 8, md: 11 },
+        scrollMarginTop: { xs: "56px", md: "64px" },
       }}
     >
       <Box sx={{ maxWidth: 1200, mx: "auto" }}>
         {/* Section header */}
-      <Box sx={{ mb: { xs: 8, md: 12 } }}>
-        <Typography
-          component="span"
-          sx={{
-            display: "block",
-            fontSize: "0.68rem",
-            fontWeight: 700,
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
-            color: "primary.main",
-            mb: 1.25,
-          }}
-        >
-          Experience
-        </Typography>
-        <Typography
-          component="h2"
-          sx={{
-            fontSize: { xs: "2.1rem", md: "2.8rem" },
-            fontWeight: 800,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.05,
-            color: "text.primary",
-            mb: 1.5,
-          }}
-        >
-          Career Snapshot
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: "0.9375rem",
-            color: "text.secondary",
-            lineHeight: 1.75,
-            maxWidth: "46ch",
-          }}
-        >
-          From apprentice to AI initiative lead — 7+ years of compounding
-          full-stack experience across scale.
-        </Typography>
-      </Box>
+        <Box sx={{ mb: { xs: 5, md: 7 } }}>
+          <Typography
+            component="span"
+            sx={{
+              display: "block",
+              fontSize: "0.68rem",
+              fontWeight: 700,
+              letterSpacing: "0.16em",
+              textTransform: "uppercase",
+              color: "primary.main",
+              mb: 1.25,
+            }}
+          >
+            Experience
+          </Typography>
+          <Typography
+            component="h2"
+            sx={{
+              fontSize: { xs: "2.1rem", md: "2.8rem" },
+              fontWeight: 800,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              color: "text.primary",
+              mb: 1.5,
+            }}
+          >
+            Career Snapshot
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "0.9375rem",
+              color: "text.secondary",
+              lineHeight: 1.75,
+              maxWidth: "46ch",
+            }}
+          >
+            From apprentice to AI initiative lead — 7+ years of compounding
+            full-stack experience across scale.
+          </Typography>
+        </Box>
 
-      {/* Timeline */}
-      <Box
-        sx={{
-          position: "relative",
-          px: { md: 6 },
-        }}
-      >
-        {/* Spine — mobile */}
+        {/* Timeline */}
         <Box
-          aria-hidden
           sx={{
-            display: { xs: "block", md: "none" },
-            position: "absolute",
-            left: 25,
-            top: 0,
-            bottom: 0,
-            width: 2,
-            background:
-              "linear-gradient(to bottom, transparent 0%, rgba(124, 93, 255, 0.35) 15%, rgba(0, 212, 196, 0.35) 60%, rgba(77, 142, 255, 0.35) 85%, transparent 100%)",
-            pointerEvents: "none",
+            position: "relative",
+            px: { md: 6 },
           }}
-        />
+        >
+          {/* Spine — mobile */}
+          <Box
+            aria-hidden
+            sx={{
+              display: { xs: "block", md: "none" },
+              position: "absolute",
+              left: 25,
+              top: 0,
+              bottom: 0,
+              width: 2,
+              background:
+                "linear-gradient(to bottom, transparent 0%, rgba(124, 93, 255, 0.35) 15%, rgba(0, 212, 196, 0.35) 60%, rgba(77, 142, 255, 0.35) 85%, transparent 100%)",
+              pointerEvents: "none",
+            }}
+          />
 
-        {/* Spine — desktop */}
-        <Box
-          aria-hidden
-          sx={{
-            display: { xs: "none", md: "block" },
-            position: "absolute",
-            left: "calc(50% - 1px)",
-            top: 0,
-            bottom: 0,
-            width: 2,
-            background:
-              "linear-gradient(to bottom, transparent 0%, rgba(124, 93, 255, 0.35) 15%, rgba(0, 212, 196, 0.35) 60%, rgba(77, 142, 255, 0.35) 85%, transparent 100%)",
-            pointerEvents: "none",
-          }}
-        />
+          {/* Spine — desktop */}
+          <Box
+            aria-hidden
+            sx={{
+              display: { xs: "none", md: "block" },
+              position: "absolute",
+              left: "calc(50% - 1px)",
+              top: 0,
+              bottom: 0,
+              width: 2,
+              background:
+                "linear-gradient(to bottom, transparent 0%, rgba(124, 93, 255, 0.35) 15%, rgba(0, 212, 196, 0.35) 60%, rgba(77, 142, 255, 0.35) 85%, transparent 100%)",
+              pointerEvents: "none",
+            }}
+          />
 
-        {HISTORY.map((entry, index) => (
-          <TimelineItem key={entry.id} entry={entry} index={index} />
-        ))}
+          {HISTORY.map((entry, index) => (
+            <TimelineItem key={entry.id} entry={entry} index={index} />
+          ))}
+        </Box>
       </Box>
-    </Box>
     </Box>
   );
 }
