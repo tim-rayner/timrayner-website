@@ -9,6 +9,7 @@ export default function HeroSection() {
   return (
     <Box
       component="section"
+      id="top"
       aria-label="Hero"
       sx={{
         minHeight: "100dvh",
@@ -81,7 +82,9 @@ export default function HeroSection() {
               href="#contact"
               onClick={(e: React.MouseEvent) => {
                 e.preventDefault();
-                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                document
+                  .getElementById("contact")
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
               icon={
                 <Box
@@ -225,7 +228,7 @@ export default function HeroSection() {
           >
             <Button
               component="a"
-              href="#work"
+              href="#projects"
               variant="contained"
               color="cta"
               fullWidth
@@ -301,7 +304,7 @@ export default function HeroSection() {
           >
             <Button
               component="a"
-              href="#work"
+              href="#projects"
               variant="contained"
               color="cta"
               sx={{

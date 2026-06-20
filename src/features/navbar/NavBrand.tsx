@@ -22,7 +22,7 @@ export default function NavBrand({ logo }: NavBrandProps) {
   }
 
   return (
-    <Link href="/" style={{ textDecoration: "none" }}>
+    <Link href="/#top" style={{ textDecoration: "none" }}>
       <Typography
         component="span"
         sx={{
