@@ -1,4 +1,61 @@
-import { PROJECTS, type TechTag } from "@/features/projects/data/projects";
+import { PROJECTS, type Project, type TechTag } from "@/features/projects/data/projects";
+
+const FRONTEND_TAGS: TechTag[] = [
+  "Next.js",
+  "React",
+  "React Native",
+  "Expo",
+  "MUI",
+  "Tailwind",
+  "Framer Motion",
+  "TanStack Query",
+];
+
+const BACKEND_TAGS: TechTag[] = [
+  "Node.js",
+  "Hono",
+  "NestJS",
+  "tRPC",
+  "GraphQL",
+  "Drizzle",
+  "Postgres",
+  "Supabase",
+  "pgvector",
+];
+
+const INFRA_TAGS: TechTag[] = [
+  "Supabase",
+  "AWS S3",
+  "Stripe",
+  "Upstash",
+  "pgvector",
+];
+
+function hasAny(p: Project, tags: TechTag[]): boolean {
+  return tags.some((t) => p.tech.includes(t));
+}
+
+export function isFullStack(p: Project): boolean {
+  return hasAny(p, FRONTEND_TAGS) && hasAny(p, BACKEND_TAGS);
+}
+
+export function usesInfra(p: Project): boolean {
+  return hasAny(p, INFRA_TAGS);
+}
+
+const CATEGORY_PATTERNS: Array<[RegExp, (p: Project) => boolean]> = [
+  [/\bfull[\s-]?stack\b/i, isFullStack],
+  [/\b(infra(structure)?|devops|deploy(ment)?|hosting)\b/i, usesInfra],
+  [/\blibrar(y|ies)\b|\bnpm\b/i, (p) => p.tech.includes("npm package")],
+  [/\b(chrome )?extension\b/i, (p) => p.tech.includes("Chrome Extension")],
+];
+
+export function matchCategory(query: string): ((p: Project) => boolean) | null {
+  for (const [pattern, predicate] of CATEGORY_PATTERNS) {
+    if (pattern.test(query)) return predicate;
+  }
+  return null;
+}
 
 const TECH_CANON: Record<string, TechTag> = {
   // Next.js

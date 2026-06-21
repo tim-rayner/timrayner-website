@@ -82,10 +82,10 @@ describe("ChatClient", () => {
 
   it("renders all four suggested prompts initially", () => {
     render(<ChatClient />);
-    expect(screen.getByText("Has Tim Implemented tRPC before?")).toBeInTheDocument();
-    expect(screen.getByText("Has Tim Implemented DDD before?")).toBeInTheDocument();
-    expect(screen.getByText("What is Tim's most used project?")).toBeInTheDocument();
-    expect(screen.getByText("How does Tim handle scaling?")).toBeInTheDocument();
+    expect(screen.getByText("Has Tim worked with React Native?")).toBeInTheDocument();
+    expect(screen.getByText("What AI/LLM projects has Tim built?")).toBeInTheDocument();
+    expect(screen.getByText("Has Tim used Three.js or BIM/IFC?")).toBeInTheDocument();
+    expect(screen.getByText("Show me Tim's full-stack projects")).toBeInTheDocument();
   });
 
   it("renders no transcript before the first message", () => {
@@ -183,15 +183,15 @@ describe("ChatClient", () => {
 
   it("hides suggested prompts after the first message is sent", () => {
     render(<ChatClient />);
-    fireEvent.click(screen.getByText("Has Tim Implemented tRPC before?"));
-    expect(screen.queryByText("Has Tim Implemented DDD before?")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByText("Has Tim worked with React Native?"));
+    expect(screen.queryByText("What AI/LLM projects has Tim built?")).not.toBeInTheDocument();
   });
 
   it("sends the correct message when a suggested prompt chip is clicked", () => {
     render(<ChatClient />);
-    fireEvent.click(screen.getByText("Has Tim Implemented tRPC before?"));
+    fireEvent.click(screen.getByText("Has Tim worked with React Native?"));
     expect(mockMutate).toHaveBeenCalledWith(
-      expect.objectContaining({ message: "Has Tim Implemented tRPC before?" })
+      expect.objectContaining({ message: "Has Tim worked with React Native?" })
     );
   });
 
@@ -378,7 +378,7 @@ describe("ChatClient", () => {
     fireEvent.click(screen.getByText("Clear chat"));
 
     expect(screen.queryByText("Clear chat")).not.toBeInTheDocument();
-    expect(screen.getByText("Has Tim Implemented tRPC before?")).toBeInTheDocument();
+    expect(screen.getByText("Has Tim worked with React Native?")).toBeInTheDocument();
   });
 
   // ─── Debounce ──────────────────────────────────────────────────────────
