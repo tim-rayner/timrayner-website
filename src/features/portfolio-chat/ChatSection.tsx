@@ -1,6 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { ChatClient } from "./ChatClient";
 import { ModalProvider } from "@/features/projects/ModalProvider";
+
+const RAG_TOOLTIP =
+  "A RAG-powered AI assistant built on OpenAI embeddings and Supabase pgvector. Ask about technologies, project domains, or anything in my work — semantically matched content is retrieved and answered by GPT-4o-mini, with relevant projects surfaced automatically.";
 
 export function ChatSection() {
   return (
@@ -16,30 +20,69 @@ export function ChatSection() {
     >
       <Box sx={{ mb: { xs: 4, md: 6 } }}>
         <Typography
+          component="span"
           sx={{
+            display: "block",
             fontSize: "0.68rem",
             fontWeight: 700,
             letterSpacing: "0.16em",
             textTransform: "uppercase",
             color: "primary.main",
-            mb: 1.5,
+            mb: 1.25,
           }}
         >
           Ask anything
         </Typography>
-        <Typography
-          variant="h2"
-          sx={{
-            fontSize: { xs: "2.4rem", sm: "3rem", md: "3.5rem" },
-            fontWeight: 800,
-            lineHeight: 1.02,
-            letterSpacing: "-0.035em",
-            color: "text.primary",
-          }}
-        >
-          Chat with my portfolio
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: "2.4rem", sm: "3rem", md: "3.5rem" },
+              fontWeight: 800,
+              lineHeight: 1.02,
+              letterSpacing: "-0.035em",
+              color: "text.primary",
+            }}
+          >
+            Chat with my portfolio
+          </Typography>
+          <Tooltip
+            title={RAG_TOOLTIP}
+            placement="right"
+            arrow
+            slotProps={{
+              tooltip: {
+                sx: {
+                  maxWidth: 300,
+                  fontSize: "0.78rem",
+                  lineHeight: 1.6,
+                  bgcolor: "background.paper",
+                  color: "text.secondary",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+                  p: 1.5,
+                },
+              },
+              arrow: {
+                sx: { color: "background.paper" },
+              },
+            }}
+          >
+            <InfoOutlinedIcon
+              sx={{
+                fontSize: { xs: "1.1rem", md: "1.25rem" },
+                color: "text.disabled",
+                cursor: "help",
+                flexShrink: 0,
+                mt: { xs: 0.5, md: 0.75 },
+                transition: "color 0.15s ease",
+                "&:hover": { color: "text.secondary" },
+              }}
+            />
+          </Tooltip>
+        </Box>
       </Box>
+
       <ModalProvider>
         <ChatClient />
       </ModalProvider>
