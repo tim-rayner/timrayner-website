@@ -230,7 +230,7 @@ export default function HeroSection() {
               component="a"
               href="#projects"
               variant="contained"
-              color="cta"
+              color="primary"
               fullWidth
               sx={{
                 height: 44,
@@ -306,7 +306,7 @@ export default function HeroSection() {
               component="a"
               href="#projects"
               variant="contained"
-              color="cta"
+              color="primary"
               sx={{
                 height: 42,
                 px: 3,

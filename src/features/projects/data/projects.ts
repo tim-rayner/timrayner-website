@@ -2,13 +2,56 @@ export type ProjectAccent = "primary" | "secondary" | "success" | "info";
 export type ProjectStatus = "live" | "wip" | "concept";
 
 export type TechTag =
-  | "Next.js" | "React" | "TypeScript" | "tRPC" | "Zod"
-  | "Node.js" | "Hono" | "NestJS"
-  | "Supabase" | "Postgres" | "Drizzle" | "pgvector"
-  | "MUI" | "TanStack Query" | "Framer Motion"
-  | "OpenAI" | "LLM" | "RAG"
-  | "Chrome Extension" | "npm package"
-  | "BIM/IFC" | "Telegram" | "GraphQL";
+  // Frameworks / runtimes
+  | "Next.js"
+  | "React"
+  | "React Native"
+  | "Expo"
+  | "Node.js"
+  | "Hono"
+  | "NestJS"
+  // Language / type system
+  | "TypeScript"
+  // API / validation
+  | "tRPC"
+  | "Zod"
+  | "GraphQL"
+  // Data / infra
+  | "Supabase"
+  | "Postgres"
+  | "Drizzle"
+  | "pgvector"
+  | "Upstash"
+  | "AWS S3"
+  | "Stripe"
+  // State / data-fetching
+  | "TanStack Query"
+  // Build / monorepo
+  | "Nx"
+  | "Rollup"
+  // 3D / graphics
+  | "Three.js"
+  | "That Open Engine"
+  | "BIM/IFC"
+  // AI / ML
+  | "OpenAI"
+  | "Replicate"
+  | "LLM"
+  | "RAG"
+  // UI / styling
+  | "MUI"
+  | "Tailwind"
+  | "Framer Motion"
+  // Maps / mobility
+  | "Google Maps"
+  | "GBFS"
+  // Testing
+  | "Vitest"
+  | "Playwright"
+  // Distribution / platform
+  | "Chrome Extension"
+  | "npm package"
+  | "Telegram";
 
 export type ProjectDomain =
   | "construction"
@@ -54,7 +97,7 @@ export const PROJECTS: Project[] = (
       accent: "primary",
       status: "wip",
       websiteUrl: "https://structura-demo.vercel.app/",
-      tech: ["Next.js", "TypeScript", "BIM/IFC", "Telegram", "LLM"],
+      tech: ["Next.js", "TypeScript", "tRPC", "Drizzle", "Postgres", "Supabase", "BIM/IFC", "Three.js", "That Open Engine", "OpenAI", "LLM", "MUI", "TanStack Query", "Zod", "Framer Motion"],
       domains: ["construction"],
     },
     {
@@ -67,7 +110,7 @@ export const PROJECTS: Project[] = (
       accent: "secondary",
       status: "wip",
       websiteUrl: "https://servaa.io/",
-      tech: ["Next.js", "TypeScript", "Supabase", "Drizzle", "tRPC", "LLM"],
+      tech: ["Next.js", "TypeScript", "tRPC", "Drizzle", "Postgres", "Supabase", "LLM", "MUI", "TanStack Query", "Nx", "Zod", "Framer Motion", "Upstash", "Vitest", "Playwright"],
       domains: ["hospitality"],
     },
     {
@@ -79,7 +122,7 @@ export const PROJECTS: Project[] = (
       logoChar: "TV",
       accent: "success",
       status: "wip",
-      tech: ["Next.js", "TypeScript"],
+      tech: ["React Native", "TypeScript", "Expo"],
       domains: ["construction"],
     },
     {
@@ -108,7 +151,7 @@ export const PROJECTS: Project[] = (
       status: "live",
       websiteUrl: "https://react-esign-docs.vercel.app/",
       npmUrl: "https://www.npmjs.com/package/react-esign",
-      tech: ["React", "TypeScript", "npm package"],
+      tech: ["React", "TypeScript", "npm package", "Rollup"],
       domains: ["developer-tooling"],
     },
     {
@@ -116,13 +159,13 @@ export const PROJECTS: Project[] = (
       name: "NoBizz",
       tagline: "Read articles without the nonesense",
       description:
-        "Chrome extension that strips sponsored posts, engagement bait, and algorithmic filler from articles and blog posts. Tells you exactly why you clicked on the page in seconds, rather than minutes scrolling nonesense.",
+        "Chrome extension that strips sponsored posts, engagement bait, and algorithmic filler from articles, blog posts, and LinkedIn feeds. Tells you exactly why you clicked on the page in seconds, rather than minutes scrolling nonsense.",
       logoChar: "NB",
       accent: "secondary",
       status: "live",
       extensionHref:
         "https://chromewebstore.google.com/detail/nobizz-tldr/ccikhaedglnfhgcghciemgflgpifdjik",
-      tech: ["Chrome Extension", "TypeScript"],
+      tech: ["Chrome Extension", "TypeScript", "LLM"],
       domains: ["developer-tooling"],
     },
     {
@@ -136,7 +179,7 @@ export const PROJECTS: Project[] = (
       status: "concept",
       githubHref: "https://github.com/tim-rayner/dream-drive",
       websiteUrl: "https://drivedream.vercel.app/",
-      tech: ["Next.js", "TypeScript", "OpenAI", "LLM"],
+      tech: ["Next.js", "TypeScript", "Replicate", "LLM", "Supabase", "MUI", "Tailwind", "Stripe", "AWS S3", "Google Maps", "Nx", "Framer Motion"],
       domains: ["creative-ai"],
     },
     {
@@ -148,7 +191,7 @@ export const PROJECTS: Project[] = (
       logoChar: "SL",
       accent: "primary",
       status: "concept",
-      tech: ["Next.js", "TypeScript"],
+      tech: ["Next.js", "TypeScript", "GBFS"],
       domains: ["mobility"],
     },
   ] as Project[]

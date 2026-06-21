@@ -1,38 +1,108 @@
 import { PROJECTS, type TechTag } from "@/features/projects/data/projects";
 
 const TECH_CANON: Record<string, TechTag> = {
-  trpc: "tRPC",
-  "t-rpc": "tRPC",
+  // Next.js
   next: "Next.js",
   nextjs: "Next.js",
   "next.js": "Next.js",
+  // React
   react: "React",
+  // React Native
+  "react native": "React Native",
+  rn: "React Native",
+  // Expo
+  expo: "Expo",
+  // TypeScript
   typescript: "TypeScript",
   ts: "TypeScript",
+  // tRPC
+  trpc: "tRPC",
+  "t-rpc": "tRPC",
+  // Zod
   zod: "Zod",
+  // GraphQL
+  graphql: "GraphQL",
+  // Node.js
+  node: "Node.js",
+  nodejs: "Node.js",
+  "node.js": "Node.js",
+  // Hono
+  hono: "Hono",
+  // NestJS
+  nestjs: "NestJS",
+  "nest.js": "NestJS",
+  // Supabase
+  supabase: "Supabase",
+  // Postgres
   postgres: "Postgres",
   postgresql: "Postgres",
-  pgvector: "pgvector",
-  rag: "RAG",
-  llm: "LLM",
-  openai: "OpenAI",
-  supabase: "Supabase",
+  // Drizzle
   drizzle: "Drizzle",
+  // pgvector
+  pgvector: "pgvector",
+  // Upstash
+  upstash: "Upstash",
+  "upstash redis": "Upstash",
+  // AWS S3
+  "aws s3": "AWS S3",
+  s3: "AWS S3",
+  // Stripe
+  stripe: "Stripe",
+  // TanStack Query
+  "tanstack query": "TanStack Query",
+  "react query": "TanStack Query",
+  tanstack: "TanStack Query",
+  // Nx
+  nx: "Nx",
+  // Rollup
+  rollup: "Rollup",
+  // Three.js
+  "three.js": "Three.js",
+  three: "Three.js",
+  threejs: "Three.js",
+  // That Open Engine
+  "that open engine": "That Open Engine",
+  thatopen: "That Open Engine",
+  // BIM/IFC
+  bim: "BIM/IFC",
+  ifc: "BIM/IFC",
+  "web-ifc": "BIM/IFC",
+  // OpenAI
+  openai: "OpenAI",
+  // Replicate
+  replicate: "Replicate",
+  // LLM
+  llm: "LLM",
+  // RAG
+  rag: "RAG",
+  // MUI
   mui: "MUI",
   "material ui": "MUI",
   "material-ui": "MUI",
-  "tanstack query": "TanStack Query",
-  "react query": "TanStack Query",
+  // Tailwind
+  tailwind: "Tailwind",
+  tailwindcss: "Tailwind",
+  // Framer Motion
   "framer motion": "Framer Motion",
   framer: "Framer Motion",
+  // Google Maps
+  "google maps": "Google Maps",
+  maps: "Google Maps",
+  // GBFS
+  gbfs: "GBFS",
+  "bike share": "GBFS",
+  // Vitest
+  vitest: "Vitest",
+  // Playwright
+  playwright: "Playwright",
+  // Chrome Extension
   "chrome extension": "Chrome Extension",
   extension: "Chrome Extension",
+  // npm package
   "npm package": "npm package",
   npm: "npm package",
-  bim: "BIM/IFC",
-  ifc: "BIM/IFC",
+  // Telegram
   telegram: "Telegram",
-  graphql: "GraphQL",
 };
 
 export function matchTechTag(query: string): TechTag | null {

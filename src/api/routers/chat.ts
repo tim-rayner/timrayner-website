@@ -103,6 +103,18 @@ export const chatRouter = router({
         projectIds: string[];
       };
 
+      const VALID_VERDICTS = new Set(["YES", "NO", "PARTIAL", "NONE"]);
+      const verdict: "YES" | "NO" | "PARTIAL" | "NONE" = VALID_VERDICTS.has(parsed.verdict)
+        ? parsed.verdict
+        : "NONE";
+
+      // Guard: the model occasionally echoes the verdict string as the answer — replace it.
+      const RAW_VERDICT_PATTERN = /^(YES|NO|PARTIAL|NONE)\.?$/i;
+      const answer =
+        parsed.answer && !RAW_VERDICT_PATTERN.test(parsed.answer.trim())
+          ? parsed.answer
+          : "I don't have enough information to answer that from Tim's portfolio.";
+
       // 5. hydrate from static array — never trust model-returned IDs directly
       const candidateIds = new Set(candidates.map((p) => p.id));
       const projects = PROJECTS.filter(
@@ -110,8 +122,8 @@ export const chatRouter = router({
       );
 
       return {
-        answer: parsed.answer,
-        verdict: parsed.verdict,
+        answer,
+        verdict,
         projects,
       };
     }),

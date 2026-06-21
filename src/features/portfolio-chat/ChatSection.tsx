@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { ChatClient } from "./ChatClient";
+import { ModalProvider } from "@/features/projects/ModalProvider";
 
 export function ChatSection() {
   return (
@@ -39,7 +40,9 @@ export function ChatSection() {
           Chat with my portfolio
         </Typography>
       </Box>
-      <ChatClient />
+      <ModalProvider>
+        <ChatClient />
+      </ModalProvider>
     </Box>
   );
 }

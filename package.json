@@ -10,7 +10,7 @@
     "postinstall": "node llm/sync.mjs",
     "sync-llm-rules": "node llm/sync.mjs",
     "test": "vitest run",
-    "ingest": "tsx -r tsconfig-paths/register scripts/ingest.ts"
+    "ingest": "DOTENV_CONFIG_PATH=.env.local tsx -r dotenv/config -r tsconfig-paths/register scripts/ingest.ts"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
@@ -27,14 +27,15 @@
     "@trpc/server": "^11.15.0",
     "drizzle-orm": "^0.45.1",
     "framer-motion": "^12.40.0",
-    "openai": "^4.104.0",
     "next": "16.2.1",
+    "openai": "^4.104.0",
     "postgres": "^3.4.8",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/node": "^20",
@@ -42,13 +43,14 @@
     "@types/react-dom": "^19",
     "@vitejs/plugin-react": "^6.0.1",
     "babel-plugin-react-compiler": "1.0.0",
+    "dotenv": "^17.4.2",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "jsdom": "^29.0.1",
-    "typescript": "^5",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.2",
+    "typescript": "^5",
     "vitest": "^4.1.1"
   }
 }

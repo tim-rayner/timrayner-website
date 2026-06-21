@@ -22,10 +22,10 @@ type Turn =
   | { role: "assistant"; content: string; projects: Project[]; verdict: Verdict };
 
 const SUGGESTED_PROMPTS = [
-  "Has Tim Implemented tRPC before?",
-  "Has Tim Implemented DDD before?",
-  "What is Tim's most used project?",
-  "How does Tim handle scaling?",
+  "Has Tim worked with React Native?",
+  "What AI/LLM projects has Tim built?",
+  "Has Tim used Three.js or BIM/IFC?",
+  "Show me Tim's full-stack projects",
 ];
 
 const VERDICT_COLORS: Record<Exclude<Verdict, "NONE">, string> = {
@@ -33,6 +33,15 @@ const VERDICT_COLORS: Record<Exclude<Verdict, "NONE">, string> = {
   NO: "#FF6B6B",
   PARTIAL: "#F4A261",
 };
+
+const VERDICT_LABELS: Record<Exclude<Verdict, "NONE">, string> = {
+  YES: "Strong match",
+  NO: "Not a fit",
+  PARTIAL: "Partial match",
+};
+
+const isKnownBadgeVerdict = (v: Verdict): v is Exclude<Verdict, "NONE"> =>
+  v === "YES" || v === "NO" || v === "PARTIAL";
 
 export function ChatClient() {
   useTheme();
@@ -80,7 +89,7 @@ export function ChatClient() {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3, maxWidth: 760 }}>
       {/* Suggested prompts — fade out after first send */}
-      <AnimatePresence>
+      <AnimatePresence initial={false}>
         {!hasSentOnce && (
           <motion.div
             initial={{ opacity: 1 }}
@@ -115,6 +124,25 @@ export function ChatClient() {
 
       {/* Transcript */}
       {hasSentOnce && (
+        <Box>
+          <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 1 }}>
+            <Typography
+              component="button"
+              onClick={() => setTurns([])}
+              sx={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "0.75rem",
+                color: "text.disabled",
+                p: 0,
+                transition: "color 0.15s ease",
+                "&:hover": { color: "text.secondary" },
+              }}
+            >
+              Clear chat
+            </Typography>
+          </Box>
         <Box
           ref={transcriptRef}
           sx={{
@@ -161,7 +189,7 @@ export function ChatClient() {
                 transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               >
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                  {turn.verdict !== "NONE" && (
+                  {isKnownBadgeVerdict(turn.verdict) ? (
                     <Box
                       sx={{
                         px: 1.25,
@@ -182,9 +210,28 @@ export function ChatClient() {
                           textTransform: "uppercase",
                         }}
                       >
-                        {turn.verdict}
+                        {VERDICT_LABELS[turn.verdict]}
                       </Typography>
                     </Box>
+                  ) : (
+                    <Typography
+                      sx={{ fontSize: "0.75rem", color: "text.disabled", fontStyle: "italic" }}
+                    >
+                      {"Tim hasn't told me much about this yet — why not reach out to him directly "}
+                      <Box
+                        component="a"
+                        href="#contact"
+                        sx={{
+                          color: "text.secondary",
+                          textDecoration: "underline",
+                          textUnderlineOffset: "2px",
+                          "&:hover": { color: "text.primary" },
+                        }}
+                      >
+                        here
+                      </Box>
+                      ?
+                    </Typography>
                   )}
                   <Typography
                     sx={{ fontSize: "0.9rem", color: "text.secondary", lineHeight: 1.7 }}
@@ -224,6 +271,7 @@ export function ChatClient() {
             </motion.div>
           )}
         </Box>
+        </Box>
       )}
 
       {/* Input row */}
@@ -255,6 +303,7 @@ export function ChatClient() {
           }}
         />
         <IconButton
+          aria-label="Send message"
           onClick={() => send(input)}
           disabled={!input.trim() || ask.isPending || debounced}
           sx={{
