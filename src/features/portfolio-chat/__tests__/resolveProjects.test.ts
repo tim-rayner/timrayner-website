@@ -63,7 +63,7 @@ describe("matchTechTag", () => {
     expect(matchTechTag("")).toBeNull();
   });
 
-  it("respects word boundaries — short alias does not match a longer word", () => {
+  it("respects word boundaries - short alias does not match a longer word", () => {
     // "ts" should not match inside "artlist" or "structura"
     expect(matchTechTag("artlist")).toBeNull();
     expect(matchTechTag("structura")).toBeNull();

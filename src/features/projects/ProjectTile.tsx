@@ -147,7 +147,7 @@ export function ProjectTile({
         </Tooltip>
       )}
 
-      {/* Folder or company logo — smaller in list view */}
+      {/* Folder or company logo - smaller in list view */}
       <Box sx={{ mt: viewMode === "list" ? 0 : { xs: 0, sm: 0.5 }, flexShrink: 0 }}>
         <Box sx={{ display: viewMode === "list" ? "none" : { xs: "none", sm: "block" } }}>
           <TileIcon logoUrl={project.companyLogoUrl} color={color} size={56} />

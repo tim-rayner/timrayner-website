@@ -227,7 +227,7 @@ export default function Footer() {
           alignItems: "start",
         }}
       >
-        {/* Left — brand + tagline */}
+        {/* Left - brand + tagline */}
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <Link href="/" style={{ textDecoration: "none" }}>
             <Typography
@@ -288,7 +288,7 @@ export default function Footer() {
           </Box>
         </Box>
 
-        {/* Right — navigation columns */}
+        {/* Right - navigation columns */}
         <Box
           sx={{
             display: "grid",

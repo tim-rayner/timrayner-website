@@ -8,7 +8,7 @@ const MotionBox = motion(Box);
 
 export interface TechItem {
   name: string;
-  /** simple-icons slug — see https://simpleicons.org */
+  /** simple-icons slug - see https://simpleicons.org */
   slug: string;
   /** Override the icon source URL entirely (e.g. devicons CDN for icons missing from simple-icons) */
   src?: string;
@@ -71,7 +71,7 @@ function TechIcon({
   );
 }
 
-// Isolated leaf — interval state never triggers parent re-renders
+// Isolated leaf - interval state never triggers parent re-renders
 const MobileRotatingBanner = memo(function MobileRotatingBanner({
   technologies,
 }: {
@@ -141,7 +141,7 @@ const MobileRotatingBanner = memo(function MobileRotatingBanner({
             }}
           >
             <TechIcon tech={tech} />
-            {/* Always show label on mobile — icon alone is ambiguous at 20px */}
+            {/* Always show label on mobile - icon alone is ambiguous at 20px */}
             <Typography
               component="span"
               sx={{

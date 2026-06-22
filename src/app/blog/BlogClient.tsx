@@ -88,7 +88,7 @@ export default function BlogClient() {
   return (
     <Box
       component="section"
-      aria-label="Blog — coming soon"
+      aria-label="Blog - coming soon"
       sx={{
         position: "relative",
         minHeight: "100dvh",
@@ -98,7 +98,7 @@ export default function BlogClient() {
         alignItems: "center",
       }}
     >
-      {/* Gradient orbs — decorative background */}
+      {/* Gradient orbs - decorative background */}
       <Box
         aria-hidden
         sx={{
@@ -172,7 +172,7 @@ export default function BlogClient() {
         }}
       />
 
-      {/* Main content — left-aligned */}
+      {/* Main content - left-aligned */}
       <Box
         sx={{
           position: "relative",
@@ -274,7 +274,7 @@ export default function BlogClient() {
               letterSpacing: "0.01em",
             }}
           >
-            Writing about the things that actually matter in software — the
+            Writing about the things that actually matter in software: the
             tradeoffs, the hard-won lessons, and the patterns worth repeating.
           </Typography>
         </Box>

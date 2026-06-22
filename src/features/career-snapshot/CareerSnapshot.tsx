@@ -39,12 +39,12 @@ const HISTORY = [
     id: "artlist",
     company: "Artlist.io",
     role: "Full Stack Software Engineer",
-    period: "Jan 2025 — Jun 2026",
+    period: "Jan 2025 - Jun 2026",
     isCurrent: true,
     logo: "/AL.png",
     logoBg: "#0B0F1A",
     summary:
-      "Planned, built, and scaled the Artlist AI Toolkit — 1 million users signed up in the first week, now contributing to Artlist's £300m ARR. Improved cold-start load time by 21%, lifting user retention by ~10% (measured via DataDog, Coralogix, and Argo). Shipped responsive UI features and backend infrastructure end-to-end, as part of a team recognised internally as extremely resourceful, reliable completer-finishers.",
+      "Planned, built, and scaled the Artlist AI Toolkit. 1 million users signed up in the first week, now contributing to Artlist's £300m ARR. Improved cold-start load time by 21%, lifting user retention by ~10% (measured via DataDog, Coralogix, and Argo). Shipped responsive UI features and backend infrastructure end-to-end, as part of a team recognised internally as extremely resourceful, reliable completer-finishers.",
     tags: [
       "Next.js",
       "React Query",
@@ -60,11 +60,11 @@ const HISTORY = [
     id: "mobilityways",
     company: "Mobilityways",
     role: "Frontend Software Engineer",
-    period: "Aug 2022 — Dec 2024",
+    period: "Aug 2022 - Dec 2024",
     isCurrent: false,
     logo: "https://media.licdn.com/dms/image/v2/C4E0BAQFeeZ02QCGz8w/company-logo_200_200/company-logo_200_200/0/1663758987311/mobilityways_logo?e=2147483647&v=beta&t=YXPRfzJm1fNrrWiOh5FTAgGs8ZWaF4NVPAMp_k3373Q",
     summary:
-      "Grew test coverage ~20% each quarter through Cypress e2e and Vitest unit tests — significantly improving developer confidence and reducing regression reports. Worked across Vue 3, React Native, and legacy templating systems (Razor, Handlebars.js), building a reputation for precision-grade UI delivery.",
+      "Grew test coverage ~20% each quarter through Cypress e2e and Vitest unit tests, significantly improving developer confidence and reducing regression reports. Worked across Vue 3, React Native, and legacy templating systems (Razor, Handlebars.js), building a reputation for precision-grade UI delivery.",
     tags: [
       "Vue 3",
       "React Native",
@@ -79,11 +79,11 @@ const HISTORY = [
     id: "asprey",
     company: "Asprey Management Solutions",
     role: "Full Stack Software Engineer",
-    period: "Apr 2022 — Aug 2022",
+    period: "Apr 2022 - Aug 2022",
     isCurrent: false,
     logo: "https://media.licdn.com/dms/image/v2/C4D0BAQGL03XRqjCXnA/company-logo_100_100/company-logo_100_100/0/1630495261709/asprey_management_solutions_logo?e=2147483647&v=beta&t=ZWeGpTGW1m8ypSioRlEtbDwjnV1-4FtDZm9o2d3OuAw",
     summary:
-      "Inherited a codebase with 0% test coverage and left it at 60% — pushing for unit and e2e testing from day one. Short engagement, meaningful impact on code quality and team confidence.",
+      "Inherited a codebase with 0% test coverage and left it at 60%, pushing for unit and e2e testing from day one. Short engagement, meaningful impact on code quality and team confidence.",
     tags: ["Angular", ".NET Core", "C#", "SQL", "Jest"],
     accentKey: "info" as AccentKey,
   },
@@ -91,11 +91,11 @@ const HISTORY = [
     id: "crisp",
     company: "Crisp Malt",
     role: "Full Stack Software Engineer",
-    period: "Oct 2019 — Apr 2022",
+    period: "Oct 2019 - Apr 2022",
     isCurrent: false,
     logo: "https://media.licdn.com/dms/image/v2/C4E0BAQE0_qXjPmCHSw/company-logo_200_200/company-logo_200_200/0/1630646319463/crisp_malt_logo?e=2147483647&v=beta&t=LVfNRhI1yqvnHMPH5vTwLHUtwVVaOyPzD65xCgxrAY0",
     summary:
-      "Where it started. Joined as an apprentice, earned a distinction, and was promoted to full-stack developer. Ported ~30% of on-prem data to Azure with fully working microservices and CI/CD pipelines. Also built ClockWatch — a paperless fire alarm registration service that removed the need for anyone to re-enter a building to collect that data manually.",
+      "Where it started. Joined as an apprentice, earned a distinction, and was promoted to full-stack developer. Ported ~30% of on-prem data to Azure with fully working microservices and CI/CD pipelines. Also built ClockWatch, a paperless fire alarm registration service that removed the need for anyone to re-enter a building to collect that data manually.",
     tags: [
       "React",
       "C#",
@@ -303,7 +303,7 @@ function TimelineItem({ entry, index }: TimelineItemProps) {
         alignItems: "start",
       }}
     >
-      {/* Left card slot — desktop only */}
+      {/* Left card slot - desktop only */}
       <Box
         sx={{
           display: { xs: "none", md: "flex" },
@@ -417,7 +417,7 @@ export default function CareerSnapshot() {
             px: { md: 6 },
           }}
         >
-          {/* Spine — mobile */}
+          {/* Spine - mobile */}
           <Box
             aria-hidden
             sx={{
@@ -433,7 +433,7 @@ export default function CareerSnapshot() {
             }}
           />
 
-          {/* Spine — desktop */}
+          {/* Spine - desktop */}
           <Box
             aria-hidden
             sx={{

@@ -88,7 +88,7 @@ export function ProjectsSection() {
           Click a project to learn more!
         </Typography>
 
-        {/* Drive-style projects grid — relative wrapper anchors the doodle hint */}
+        {/* Drive-style projects grid - relative wrapper anchors the doodle hint */}
         <ModalProvider>
           <Box sx={{ position: "relative" }}>
             <RightClickHint />

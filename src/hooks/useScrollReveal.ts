@@ -10,11 +10,11 @@ const useIsomorphicLayoutEffect =
  *
  * Why not framer-motion initial="hidden":
  *   framer-motion serialises `initial` as inline CSS during SSR, so the server
- *   HTML has opacity:0 on content — invisible to crawlers and stuck invisible
+ *   HTML has opacity:0 on content, invisible to crawlers and stuck invisible
  *   on back/forward when JS timing is off.
  *
  * This hook returns true (visible) in three cases:
- *   1. SSR — no inline style applied, content renders normally in HTML.
+ *   1. SSR - no inline style applied, content renders normally in HTML.
  *   2. Element is already in the viewport when the component mounts
  *      (back/forward restores scroll position before effects run).
  *   3. After the IntersectionObserver fires as the user scrolls down.

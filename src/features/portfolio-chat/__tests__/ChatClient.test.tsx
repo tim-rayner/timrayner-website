@@ -390,7 +390,7 @@ describe("ChatClient", () => {
     fireEvent.change(input, { target: { value: "First" } });
     fireEvent.click(sendButton());
 
-    // Attempt second send immediately — debounce should block it
+    // Attempt second send immediately - debounce should block it
     fireEvent.change(input, { target: { value: "Second" } });
     fireEvent.click(sendButton());
 

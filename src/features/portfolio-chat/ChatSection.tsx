@@ -7,7 +7,7 @@ import { ChatClient } from "./ChatClient";
 import { ModalProvider } from "@/features/projects/ModalProvider";
 
 const RAG_TOOLTIP =
-  "A RAG-powered AI assistant built on OpenAI embeddings and Supabase pgvector. Ask about technologies, project domains, or anything in my work — semantically matched content is retrieved and answered by GPT-4o-mini, with relevant projects surfaced automatically.";
+  "A RAG-powered AI assistant built on OpenAI embeddings and Supabase pgvector. Ask about technologies, project domains, or anything in my work; semantically matched content is retrieved and answered by GPT-4o-mini, with relevant projects surfaced automatically.";
 
 const infoIconSx = {
   fontSize: { xs: "1.1rem", md: "1.25rem" },

@@ -102,7 +102,7 @@ export function ChatClient() {
         mx: "auto",
       }}
     >
-      {/* Suggested prompts — fade out after first send */}
+      {/* Suggested prompts - fade out after first send */}
       <AnimatePresence initial={false}>
         {!hasSentOnce && (
           <motion.div
@@ -242,7 +242,7 @@ export function ChatClient() {
                         }}
                       >
                         {
-                          "Tim hasn't told me much about this yet — why not reach out to him directly "
+                          "Tim hasn't told me much about this yet, so why not reach out to him directly "
                         }
                         <Box
                           component="a"

@@ -168,7 +168,7 @@ export default function HeroSection() {
           </Typography>
         </Box>
 
-        {/* Supporting copy — mobile only */}
+        {/* Supporting copy - mobile only */}
         <Box
           sx={{
             mb: { xs: 2, md: 0 },
@@ -189,7 +189,7 @@ export default function HeroSection() {
           </Typography>
         </Box>
 
-        {/* Tagline — hidden on mobile */}
+        {/* Tagline - hidden on mobile */}
         <Box
           sx={{ mb: { xs: 2, md: 1 }, display: { xs: "none", sm: "block" } }}
         >
@@ -370,7 +370,7 @@ export default function HeroSection() {
           </Box>
         </Box>
 
-        {/* Tech stack banner — desktop only */}
+        {/* Tech stack banner - desktop only */}
         <TechStackBanner />
       </Box>
 

@@ -105,7 +105,7 @@ export const PROJECTS: Project[] = (
       name: "Servaa",
       tagline: "The brain of hospitality",
       description:
-        "AI/ML platform for the hospitality industry — reducing food waste, optimising staff rotas, and surfacing local produce sourcing insights for venue operators.",
+        "AI/ML platform for the hospitality industry. Reduces food waste, optimises staff rotas, and surfaces local produce sourcing insights for venue operators.",
       logoChar: "SV",
       accent: "secondary",
       status: "wip",
@@ -145,7 +145,7 @@ export const PROJECTS: Project[] = (
       name: "React ESign",
       tagline: "Handwritten e-signatures for React",
       description:
-        "Lightweight, dependency-free React component for capturing handwritten signatures — ideal for e-signatures, form authentication, and user confirmations.",
+        "Lightweight, dependency-free React component for capturing handwritten signatures; ideal for e-signatures, form authentication, and user confirmations.",
       logoChar: "RE",
       accent: "info",
       status: "live",

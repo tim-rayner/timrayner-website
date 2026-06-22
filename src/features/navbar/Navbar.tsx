@@ -84,7 +84,7 @@ export default function Navbar() {
           minHeight: { xs: "56px", md: "64px" },
         }}
       >
-        {/* Brand — always visible */}
+        {/* Brand - always visible */}
         <NavBrand />
 
         {/* Desktop: nav links + CTA */}

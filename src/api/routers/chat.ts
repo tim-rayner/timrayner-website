@@ -80,7 +80,7 @@ export const chatRouter = router({
           { role: "system", content: SYSTEM },
           {
             role: "system",
-            content: `Context:\n${context || "(none — answer from general knowledge of the project list only)"}`,
+            content: `Context:\n${context || "(none - answer from general knowledge of the project list only)"}`,
           },
           {
             role: "system",
@@ -108,14 +108,14 @@ export const chatRouter = router({
         ? parsed.verdict
         : "NONE";
 
-      // Guard: the model occasionally echoes the verdict string as the answer — replace it.
+      // Guard: the model occasionally echoes the verdict string as the answer - replace it.
       const RAW_VERDICT_PATTERN = /^(YES|NO|PARTIAL|NONE)\.?$/i;
       const answer =
         parsed.answer && !RAW_VERDICT_PATTERN.test(parsed.answer.trim())
           ? parsed.answer
           : "I don't have enough information to answer that from Tim's portfolio.";
 
-      // 5. hydrate from static array — never trust model-returned IDs directly
+      // 5. hydrate from static array - never trust model-returned IDs directly
       const candidateIds = new Set(candidates.map((p) => p.id));
       const projects = PROJECTS.filter(
         (p) => parsed.projectIds.includes(p.id) && candidateIds.has(p.id)
