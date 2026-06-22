@@ -1,7 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { Box, Button, Link as MuiLink } from "@mui/material";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface NavLink {
   readonly label: string;
@@ -90,7 +90,7 @@ export default function MobileMenu({ open, links, onClose }: MobileMenuProps) {
             <motion.div variants={itemVariants}>
               <Button
                 component="a"
-                href="/assets/pdf/2025-TR-CV.pdf"
+                href="/assets/pdf/2026-TR-CV.pdf"
                 download
                 fullWidth
                 onClick={onClose}

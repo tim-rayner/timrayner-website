@@ -1,10 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { AppBar, Box, Button, IconButton, Link as MuiLink, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Link as MuiLink,
+  Toolbar,
+} from "@mui/material";
 import { motion } from "framer-motion";
-import NavBrand from "./NavBrand";
+import { useState } from "react";
 import MobileMenu from "./MobileMenu";
+import NavBrand from "./NavBrand";
 
 const NAV_LINKS = [
   { label: "Projects", href: "/#projects" },
@@ -23,7 +30,17 @@ function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
   };
 
   return (
-    <Box sx={{ width: 22, height: 16, position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between", color: "text.primary" }}>
+    <Box
+      sx={{
+        width: 22,
+        height: 16,
+        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        color: "text.primary",
+      }}
+    >
       <motion.span
         animate={isOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
         transition={{ type: "spring", stiffness: 320, damping: 28 }}
@@ -106,7 +123,7 @@ export default function Navbar() {
 
           <Button
             component="a"
-            href="/assets/pdf/2025-TR-CV.pdf"
+            href="/assets/pdf/2026-TR-CV.pdf"
             download
             size="small"
             sx={{

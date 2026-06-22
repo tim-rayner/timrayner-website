@@ -245,7 +245,7 @@ export default function HeroSection() {
             <Box sx={{ display: "flex", gap: 1.5 }}>
               <Button
                 component="a"
-                href="/assets/pdf/2025-TR-CV.pdf"
+                href="/assets/pdf/2026-TR-CV.pdf"
                 download
                 variant="outlined"
                 fullWidth
@@ -321,7 +321,7 @@ export default function HeroSection() {
             </Button>
             <Button
               component="a"
-              href="/assets/pdf/2025-TR-CV.pdf"
+              href="/assets/pdf/2026-TR-CV.pdf"
               download
               variant="outlined"
               sx={{

@@ -386,7 +386,7 @@ export default function Footer() {
             </Typography>
             <MuiLink
               component="a"
-              href="/assets/pdf/2025-TR-CV.pdf"
+              href="/assets/pdf/2026-TR-CV.pdf"
               download
               underline="none"
               sx={{
